@@ -1,0 +1,93 @@
+  // ====================================
+  // ======  listening to address =======
+  // ====================================
+  always@(posedge scl_i) 
+  begin
+    if((addr_listen_counter > 0) && (listening_for_addr))
+      begin
+      addr_heard[i]; = sda_i;
+      addr_listen_counter = addr_listen_counter - 1;
+      i = i + 1;
+      end
+    else if (listening_for_addr)
+      begin
+        if(addr_heard == 8'h44)
+          sda_o = 1'b1; // ACK
+          data_listen_counter = 9;
+          listening_for_data = 1'b1;          
+          listening_for_addr = 1'b0;
+      end
+    if((data_listen_counter > 0) && (listening_for_data))
+      begin
+      data_heard[j]; = sda_i;
+      data_listen_counter = data_listen_counter - 1;
+      i = i + 1;
+      end
+    else if (listening_for_data)
+      begin
+          sda_o = 1'b1; // ACK
+          data_listen_counter = 9;
+      end      
+  end
+
+  // ====================================
+  // ======  listening to data    =======
+  // ====================================
+  always@(posedge scl_i) 
+  begin
+
+  end  
+
+
+
+  wait(scl);
+  temp = sda;
+  wait((~scl)||((~temp)&&(sda)));
+  temp2 = sda;
+
+  if(temp) begin
+    if(temp2) state = DATA;
+
+      @(negedge sda_i) 
+    begin
+      if(scl_i)
+        begin
+          listen_state = 2'b01;
+          $display("======= start bit seen =======");
+          i = 0;
+        end
+    end 
+
+    if(listen_state == 2'b01)
+    begin
+      $display("======= capturing address =======");
+      for (int i = 0; i < 9; i++) begin
+        @(posedge scl_i)
+          addr_heard[i] = sda_i;
+      end
+    end
+
+    $display("======= address captured =======");
+    $display("address heard: %h", addr_heard);
+
+    if(addr_heard == 7'h22)
+      begin
+      listen_state = 2'b10;
+      @(posedge scl_i)
+        sda_reg <= 1'b0; // ACK
+      end
+
+    if(listen_state == 2'b10)
+    begin
+      $display("======= capturing data =======");
+      for (int i = 0; i < 9; i++) begin
+        @(posedge scl_i)
+          data_heard[i] = sda_i;
+      end
+    end      
+    @(posedge scl_i)
+      sda_reg <= 1'b0; // ACK
+
+
+    $display("======= data captured =======");
+    $display("data heard: %d", data_heard);  
