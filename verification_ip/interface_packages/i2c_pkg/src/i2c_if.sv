@@ -12,10 +12,10 @@ interface i2c_if       #(
   output tri sda_o
   );
 
-reg sda_reg;
-bit sda_put;
+reg sda_reg = 1'b1;
+bit sda_put = 1'b0;
 
-assign sda_o = sda_put ? sda_reg : 1'b0;
+assign sda_o = sda_put ? sda_reg : 1'bz;
 
 task drive_sda(input bit data);
   sda_reg = data;
@@ -28,8 +28,7 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
   listen_states_t listen_state;
   bit [8:0] addr_heard;
   bit [8:0] data_heard;
-  
-  sda_reg = 1'b1;
+
   listen_state = IDLE;
 
   while(1)
