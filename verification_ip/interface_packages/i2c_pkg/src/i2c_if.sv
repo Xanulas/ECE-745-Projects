@@ -7,14 +7,14 @@ interface i2c_if       #(
       )
 (
   // interface ports
-  input tri scl_i,
-  input tri sda_i,
-  output tri scl_o,
-  output tri sda_o
+  input triand scl_i,
+  input triand sda_i,
+  output triand scl_o,
+  output triand sda_o
   );
 
-reg sda_reg = 1'b1;
-bit sda_put = 1'b0;
+logic sda_reg = 1'b1;
+logic sda_put = 1'b0;
 bit [I2C_DATA_WIDTH-1:0] data_in [$];
 bit [I2C_DATA_WIDTH-1:0] read_in [$];
 
@@ -107,21 +107,22 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
         end
         data_heard[7-i] = sda_i;
       end
-        if(finished) break;
-        data_in.push_front(data_heard);
-        $display("data heard: %d", data_heard);
-        listen_state = WRITE;
-        drive_sda(1'b0); // ack
+      if(finished) break;
+      data_in.push_front(data_heard);
+      $display("data heard: %d", data_heard);
+      listen_state = WRITE;
+      drive_sda(1'b0); // ack
     end
     READ  : begin
       byte_out = read_in.pop_back();
 
       $display("byte out: %d", byte_out);
 
-      for(int i = 0; i<7; i++)begin
-        drive_sda(byte_out[i]);
+      for(int i = 0; i<8; i++)begin
+        drive_sda(byte_out[7-i]);
       end
     check_read(meaning, data);
+    if(meaning) begin if(data) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
     end
     default : listen_state = IDLE;
     endcase
