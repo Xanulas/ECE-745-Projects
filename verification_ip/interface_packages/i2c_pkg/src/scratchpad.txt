@@ -1,5 +1,4 @@
-cd ECE-745/; cd ece_projects/; cd project_benches/; cd proj_1/; cd sim/;  
-  
+cd ECE-745/; cd ece745_projects/; cd project_benches/; cd proj_1/; cd sim/; ml questa;
   
   // ====================================
   // ======  listening to address =======
@@ -94,3 +93,59 @@ cd ECE-745/; cd ece_projects/; cd project_benches/; cd proj_1/; cd sim/;
 
     $display("======= data captured =======");
     $display("data heard: %d", data_heard);  
+
+
+      // verify the structure is holding the right values
+  for (int i = 0; i < 32; i++) begin
+    $display("read_set[i]: %d", read_set[i]);
+  end  
+
+
+=======================================================================
+
+$display("//===========================================================//");      
+$display(" Reading 100-131 from the I2C Bus ");
+$display("//===========================================================//");      
+  fork
+    begin
+              bit transfer_complete;
+    read_in = new [8'd32];
+    for(int blah = 0; blah < 8'd32; blah++)begin
+        bit[I2C_DATA_WIDTH - 1:0] line;
+        line = blah + 8'd100;
+        read_in[blah] = line;
+    end
+    transfer_complete = 1'b0;
+    
+    i2c_bus.provide_read_data(read_in, transfer_complete);
+        end
+
+    begin
+    read_to_address(8'h22, read_out, 32);
+    
+    end
+    
+    begin
+            wait_for_i2c_transfer();
+        end
+  join
+
+
+
+task provide_read_data(
+        input bit [I2C_DATA_WIDTH-1:0] read_data[],
+        output bit transfer_complete
+    );
+    transfer_complete = 1'b0;
+    for(int i = 0; i < read_data.size(); i++)read_queue.push_front(read_data[i]);
+    transfer_complete = 1'b1;
+endtask
+
+
+
+burst = read_queue.pop_back();
+for(int i = 7; i>=0; i--)begin
+  wiggle(burst[i]);
+end
+
+selection(state, temp);

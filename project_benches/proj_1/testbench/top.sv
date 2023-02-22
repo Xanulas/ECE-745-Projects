@@ -9,6 +9,7 @@ parameter int I2C_DATA_WIDTH = 8;
 parameter int NUM_I2C_BUSSES = 1;
 
 bit [I2C_DATA_WIDTH] i2c_write_data [];
+bit [I2C_DATA_WIDTH] i2c_read_data [];
 bit [7:0] wb_data;
 bit [7:0] cmdr_temp;
 bit i2c_op;
@@ -109,17 +110,13 @@ initial
     begin
       set_bus(8'h05); // set bus 5
       write_data(8'h45); // set address 22 + 1     
-      for (int i = 0; i < 32; i++) begin
-        wb_data = i;
-        write_data(wb_data);
-      end
+      read_data(i2c_read_data, 32);
+      issue_stop();
     end
     begin
       i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
     end
   join
-
-
 
 
   // =========================================================
@@ -128,27 +125,28 @@ initial
   // ==========================================================  
 
 
-  end
 
-  end
+
+  end // while loop
+  end // test flow initial block
 
 // ==========================================================
 // ==========   task to send read from slave ================
 // ==========================================================
-task read_data( input bit [I2C_ADDR_WIDTH-1:0] addr, output bit [I2C_DATA_WIDTH-1:0] data [], input int line );
+task read_data(output bit [I2C_DATA_WIDTH-1:0] data [], input int line );
     bit [WB_DATA_WIDTH-1:0] temp;
 
     data = new[line];
+    temp = 8'h45;
 
     foreach(data[i]) begin
         wb_bus.master_write(CMDR, 8'bxxxx_x010);
         wait(irq);
         wb_bus.master_read(DPR, temp);
         data[i] = temp;
+        $display("data[%d]: %d", i, data[i])
         wb_bus.master_read(CMDR, temp);
     end
-
-
 
 endtask
 

@@ -60,6 +60,14 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
   bit data;
   int size;
 
+  // create the structure which holds the values to be read
+  bit [7:0] read_set [32];
+  bit [7:0] insert_byte;
+  for (int i = 0; i < 32; i++) begin
+    insert_byte = i + 100;
+    read_set[i] = insert_byte;
+  end
+
   listen_state = IDLE;
   while(1)
   begin
@@ -104,7 +112,10 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
         drive_sda(1'b0); // ack
     end
     READ  : begin
-      $display("in read state");
+      check_read(meaning, data); 
+      if(meaning) begin if(data) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); end end
+      provide_read_data();
+      listen_state = READ;
     end
     default : listen_state = IDLE;
     endcase
@@ -114,6 +125,14 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
 endtask
 
 task provide_read_data ( input bit [I2C_DATA_WIDTH-1:0] read_data [], output bit transfer_complete);
+    int i, j, size;
+
+    size = data_in.size();
+
+    for(i = 0; i < size; i++)
+      for(j = 0; j < 8; j++) begin
+        drive_sda(read_data[i][7-j]);
+      end
 
 endtask
 
