@@ -1,3 +1,6 @@
+cd ECE-745/; cd ece_projects/; cd project_benches/; cd proj_1/; cd sim/;  
+  
+  
   // ====================================
   // ======  listening to address =======
   // ====================================

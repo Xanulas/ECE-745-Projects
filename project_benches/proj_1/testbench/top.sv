@@ -33,8 +33,6 @@ wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
 tri  [NUM_I2C_BUSSES-1:0] sda;
 
-
-
 bit monitor_we;
 reg [WB_ADDR_WIDTH-1:0] monitor_addr;
 reg [WB_DATA_WIDTH-1:0] monitor_data;
@@ -68,13 +66,12 @@ initial
   end
 
 // ****************************************************************************
-// Monitor Wishbone bus and display transfers in the transcript
+// Call wait_for_i2c_transfer (probably not the correct way)
 
-initial
-  begin : i2c_waiting_for_transfer
-    i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
-  end
-
+// initial
+//   begin : i2c_waiting_for_transfer
+//     i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
+//   end
 
 // ****************************************************************************
 // Define the flow of the simulation
@@ -85,19 +82,117 @@ initial
   begin
   #1000
 
-  set_bus(8'h05); // set bus 5
-  write_data(8'h44); // set address 22
+  // ==========================================================
+  // ================= test stimulus #1 =======================
+  // Write 32 incrementing values, from 0 to 31, to the i2c_bus
+  // ==========================================================
+  // fork
+  //   begin
+  //     set_bus(8'h05); // set bus 5
+  //     write_data(8'h44); // set address 22 + 0      
+  //     for (int i = 0; i < 32; i++) begin
+  //       wb_data = i;
+  //       write_data(wb_data);
+  //     end
+  //     issue_stop();
+  //   end
+  //   begin
+  //     i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
+  //   end
+  // join
 
-  for (int i = 0; i < 32; i++) begin
-    wb_data = i;
-    write_data(wb_data);
+  // ==========================================================
+  // ================= test stimulus #2 =======================
+  // Read 32 values from the i2c_bus (expecting 100 - 131)
+  // ==========================================================
+  fork
+    begin
+      set_bus(8'h05); // set bus 5
+      write_data(8'h45); // set address 22 + 1     
+      for (int i = 0; i < 32; i++) begin
+        wb_data = i;
+        write_data(wb_data);
+      end
+    end
+    begin
+      i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
+    end
+  join
+
+
+
+
+  // =========================================================
+  // ================= test stimulus #3 =======================
+  // Alternate writes and reads for 64 transfers (W: 64-127) / (R: 63-0)
+  // ==========================================================  
+
+
   end
 
-  issue_stop();
-
   end
 
-  end
+// ==========================================================
+// ==========   task to send read from slave ================
+// ==========================================================
+task read_data( input bit [I2C_ADDR_WIDTH-1:0] addr, output bit [I2C_DATA_WIDTH-1:0] data [], input int line );
+    bit [WB_DATA_WIDTH-1:0] temp;
+
+    data = new[line];
+
+    foreach(data[i]) begin
+        wb_bus.master_write(CMDR, 8'bxxxx_x010);
+        wait(irq);
+        wb_bus.master_read(DPR, temp);
+        data[i] = temp;
+        wb_bus.master_read(CMDR, temp);
+    end
+
+
+
+endtask
+
+// ==========================================================
+// =============  task to set the i2c bus ===================
+// ==========================================================
+task set_bus(input [7:0] bus_number);
+
+  wb_bus.master_write(CSR,8'b11xx_xxxx); // one time initialization
+  wb_bus.master_write(DPR, bus_number); // data to go to bus, either address or data
+  wb_bus.master_write(CMDR,8'bxxxx_x110); // "do a bus set to bus 5" - the only bus we will 
+  wait(irq); // the dut agreed, will use bus 5
+  wb_bus.master_write(CMDR,8'bxxxx_x100); // one time "we are starting now"
+  wait(irq); // DUT agrees that i2c is started
+  wb_bus.master_read(CMDR, cmdr_temp);
+  wait(irq);
+
+endtask
+
+// ==========================================================
+// =========  task to put data on the i2c bus ===============
+// ==========================================================
+task write_data(input [7:0] data);
+
+  wb_bus.master_write(DPR, data); // arbitrary address to send data to
+  wb_bus.master_write(CMDR,8'bxxxx_x001); // put the addresss on the bus "write"
+  wait(irq); // wait for the DUT to indicate that it knows we are using address 22
+  wb_bus.master_read(CMDR, cmdr_temp);
+  wait(irq);
+
+endtask
+
+// ==========================================================
+// ===========   task to send the stop bit  =================
+// ==========================================================
+task issue_stop();
+
+  wb_bus.master_write(CMDR,8'bxxxx_x101);
+  wait(irq);
+  wb_bus.master_read(CMDR, cmdr_temp);
+  wait(irq);  
+
+endtask
+
 
 // ****************************************************************************
 // Instantiate the Wishbone master Bus Functional Model
@@ -125,6 +220,9 @@ wb_bus (
   .dat_o(dat_wr_o),
   .dat_i(dat_rd_i)
   );
+
+
+// INSTANTIATIONS
 
 // ****************************************************************************
 // Instantiate the DUT - I2C Multi-Bus Controller
@@ -156,6 +254,8 @@ wb_bus (
     // ------------------------------------
   );
 
+// ****************************************************************************
+// Instantiate the I2C BFM
 i2c_if       #(
       .I2C_ADDR_WIDTH(I2C_ADDR_WIDTH),
       .I2C_DATA_WIDTH(I2C_DATA_WIDTH)
@@ -166,38 +266,5 @@ i2c_bus (
   .scl_o(scl),
   .sda_o(sda)
 );
-
-// add input argument to choose bus number
-task set_bus(input [7:0] bus_number);
-
-  wb_bus.master_write(CSR,8'b11xx_xxxx); // one time initialization
-  wb_bus.master_write(DPR, bus_number); // data to go to bus, either address or data
-  wb_bus.master_write(CMDR,8'bxxxx_x110); // "do a bus set to bus 5" - the only bus we will 
-  wait(irq); // the dut agreed, will use bus 5
-  wb_bus.master_write(CMDR,8'bxxxx_x100); // one time "we are starting now"
-  wait(irq); // DUT agrees that i2c is started
-  wb_bus.master_read(CMDR, cmdr_temp);
-  wait(irq);
-
-endtask
-
-task write_data(input [7:0] data);
-
-  wb_bus.master_write(DPR, data); // arbitrary address to send data to
-  wb_bus.master_write(CMDR,8'bxxxx_x001); // put the addresss on the bus "write"
-  wait(irq); // wait for the DUT to indicate that it knows we are using address 22
-  wb_bus.master_read(CMDR, cmdr_temp);
-  wait(irq);
-
-endtask
-
-task issue_stop();
-
-  wb_bus.master_write(CMDR,8'bxxxx_x101);
-  wait(irq);
-  wb_bus.master_read(CMDR, cmdr_temp);
-  wait(irq);  
-
-endtask
 
 endmodule
