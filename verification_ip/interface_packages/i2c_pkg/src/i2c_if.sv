@@ -16,6 +16,7 @@ interface i2c_if       #(
 reg sda_reg = 1'b1;
 bit sda_put = 1'b0;
 bit [I2C_DATA_WIDTH-1:0] data_in [$];
+bit [I2C_DATA_WIDTH-1:0] read_in [$];
 
 
 // *********************************************
@@ -34,9 +35,9 @@ task check_read(output bit meaning, output bit data);
   bit posedge_sda;
   bit negedge_sda;
 
-  wait(scl_i)
+  wait(scl_i);
   posedge_sda = sda_i;
-  wait(!scl_i || (sda_i != posedge_sda))
+  wait(!scl_i || (sda_i != posedge_sda));
   negedge_sda = sda_i;
 
   // initially assume we are just reading data
@@ -56,24 +57,19 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
   listen_states_t listen_state;
   bit [6:0] addr_heard;
   bit [7:0] data_heard;
+  bit [7:0] byte_out;
   bit meaning; // 0 if data, 1 if start/stop
   bit data;
+  bit finished;
   int size;
 
-  // create the structure which holds the values to be read
-  bit [7:0] read_set [32];
-  bit [7:0] insert_byte;
-  for (int i = 0; i < 32; i++) begin
-    insert_byte = i + 100;
-    read_set[i] = insert_byte;
-  end
-
+  finished = 1'b0;
   listen_state = IDLE;
+
   while(1)
   begin
     case(listen_state)
     IDLE  : begin
-      listen_state = IDLE;
       check_read(meaning, data);
       if(meaning) begin if(data) listen_state = ADDR; end
     end
@@ -81,11 +77,14 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
       check_read(meaning, data);
       for (int i = 0; i < 7; i++) begin
         check_read(meaning, data);
-        addr_heard[6-i] = data;
+        if(meaning) begin if(data) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
+        else
+          addr_heard[6-i] = data;
       end
+      if(finished) break;
       $display("addr heard: %h", addr_heard);
       check_read(meaning, data); 
-        if(meaning) begin if(data) listen_state = ADDR; else listen_state = IDLE; end
+        if(meaning) begin if(data) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
         else 
           begin 
             if (data) begin op = I2C_READ; listen_state = READ; end
@@ -99,41 +98,45 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
         if(meaning) begin 
           if(data) listen_state = ADDR; 
           else begin // stop condition (write data back)
+            $display("STOP received");
             listen_state = IDLE; 
             size = data_in.size();
             write_data = new[size];
-            for(int i = 0; i<size; i++) write_data[i] = data_in.pop_back(); end
+            for(int i = 0; i<size; i++) write_data[i] = data_in.pop_back(); 
+            finished = 1'b1; break; end
         end
         data_heard[7-i] = sda_i;
       end
+        if(finished) break;
         data_in.push_front(data_heard);
         $display("data heard: %d", data_heard);
         listen_state = WRITE;
         drive_sda(1'b0); // ack
     end
     READ  : begin
-      check_read(meaning, data); 
-      if(meaning) begin if(data) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); end end
-      provide_read_data();
-      listen_state = READ;
+      byte_out = read_in.pop_back();
+
+      $display("byte out: %d", byte_out);
+
+      for(int i = 0; i<7; i++)begin
+        drive_sda(byte_out[i]);
+      end
+    check_read(meaning, data);
     end
     default : listen_state = IDLE;
     endcase
+    if(finished) break;
  end
-
-
 endtask
 
 task provide_read_data ( input bit [I2C_DATA_WIDTH-1:0] read_data [], output bit transfer_complete);
-    int i, j, size;
 
-    size = data_in.size();
+    transfer_complete = 1'b0;
 
-    for(i = 0; i < size; i++)
-      for(j = 0; j < 8; j++) begin
-        drive_sda(read_data[i][7-j]);
-      end
+    for(int i = 0; i < read_data.size(); i++)
+      read_in.push_front(read_data[i]);
 
+    transfer_complete = 1'b1;
 endtask
 
 // ***********************************************

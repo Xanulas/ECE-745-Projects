@@ -83,40 +83,56 @@ initial
   begin
   #1000
 
+
   // ==========================================================
   // ================= test stimulus #1 =======================
   // Write 32 incrementing values, from 0 to 31, to the i2c_bus
   // ==========================================================
-  // fork
-  //   begin
-  //     set_bus(8'h05); // set bus 5
-  //     write_data(8'h44); // set address 22 + 0      
-  //     for (int i = 0; i < 32; i++) begin
-  //       wb_data = i;
-  //       write_data(wb_data);
-  //     end
-  //     issue_stop();
-  //   end
-  //   begin
-  //     i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
-  //   end
-  // join
-
-  // ==========================================================
-  // ================= test stimulus #2 =======================
-  // Read 32 values from the i2c_bus (expecting 100 - 131)
-  // ==========================================================
   fork
     begin
       set_bus(8'h05); // set bus 5
-      write_data(8'h45); // set address 22 + 1     
-      read_data(i2c_read_data, 32);
+      write_data(8'h44); // set address 22 + 0      
+      for (int i = 0; i < 32; i++) begin
+        wb_data = i;
+        write_data(wb_data);
+      end
       issue_stop();
     end
     begin
       i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
     end
   join
+
+  $display("===== FINISH TEST 1 =====");
+  // #1000
+
+  // ==========================================================
+  // ================= test stimulus #2 =======================
+  // Read 32 values from the i2c_bus (expecting 100 - 131)
+  // ==========================================================  
+  fork
+    begin // TASK 1: SET THE DATA TO BE READ
+      bit transfer_complete;
+      bit [7:0] insert_byte;
+      bit [7:0] read_set [32];
+      for (int i = 0; i < 32; i++) begin
+        insert_byte = i + 100;
+        read_set[i] = insert_byte;
+      end
+      transfer_complete = 1'b0;
+      i2c_bus.provide_read_data(read_set, transfer_complete);
+      issue_stop();
+      end
+    begin // TASK 2: ISSUE THE WISHBONE READ COMMANDS
+      set_bus(8'h05); // set bus 5
+      write_data(8'h45); // set address 22 + 1          
+      read_data(i2c_read_data, 32);
+    end
+    begin // TASK 3: I2C DRIVES THE SDA
+      i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
+    end
+  join
+
 
 
   // =========================================================
@@ -125,10 +141,10 @@ initial
   // ==========================================================  
 
 
+  
 
-
-  end // while loop
-  end // test flow initial block
+end // while loop
+end // test flow initial block
 
 // ==========================================================
 // ==========   task to send read from slave ================
@@ -144,7 +160,7 @@ task read_data(output bit [I2C_DATA_WIDTH-1:0] data [], input int line );
         wait(irq);
         wb_bus.master_read(DPR, temp);
         data[i] = temp;
-        $display("data[%d]: %d", i, data[i])
+        //$display("data[%d]: %d", i, data[i])
         wb_bus.master_read(CMDR, temp);
     end
 
