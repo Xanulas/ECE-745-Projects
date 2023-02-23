@@ -74,13 +74,11 @@ initial
 // ****************************************************************************
 // Call i2c_bus.monitor
 
-initial
-  begin : monitor_i2c_bus
-    
-      i2c_bus.monitor(monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
-      $display("monitor_i2c_addr: %x\nmonitor_i2c_op: %x\nmonitor_i2c_data: %d\n", monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
-    
-  end
+// initial
+//   begin : monitor_i2c_bus
+//       i2c_bus.monitor(monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
+//       $display("monitor_i2c_addr: %x\nmonitor_i2c_op: %x\nmonitor_i2c_data: %d\n", monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
+//   end
 
 // ****************************************************************************
 // Define the flow of the simulation
@@ -110,10 +108,13 @@ initial
     begin
       i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
     end
+    begin
+    i2c_bus.monitor(monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
+    $display("monitor_i2c_addr: %x\nmonitor_i2c_op: %x\nmonitor_i2c_data: %d\n", monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);      
+    end
   join
 
   $display("===== FINISH TEST 1 =====");
-  // #1000
 
   // ==========================================================
   // ================= test stimulus #2 =======================

@@ -175,7 +175,7 @@ task monitor ( output bit [I2C_ADDR_WIDTH-1:0] addr, output i2c_op_t op, output 
         check_read(meaning, data_sda);
         if(meaning) begin if(data_sda) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
         else
-          addr_heard[6-i] = data_sda;
+          addr_heard[6-i] = sda_i;
       end
       addr = addr_heard;
       if(finished) break;
