@@ -122,7 +122,7 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
         drive_sda(byte_out[7-i]);
       end
     check_read(meaning, data);
-    if(meaning) begin if(data) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
+    if(data) begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end
     end
     default : listen_state = IDLE;
     endcase

@@ -121,12 +121,12 @@ initial
       end
       transfer_complete = 1'b0;
       i2c_bus.provide_read_data(read_set, transfer_complete);
-      issue_stop();
       end
     begin // TASK 2: ISSUE THE WISHBONE READ COMMANDS
       set_bus(8'h05); // set bus 5
       write_data(8'h45); // set address 22 + 1          
       read_data(i2c_read_data, 32);
+      issue_stop();
     end
     begin // TASK 3: I2C DRIVES THE SDA
       i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
@@ -149,13 +149,13 @@ end // test flow initial block
 // ==========================================================
 // ==========   task to send read from slave ================
 // ==========================================================
-task read_data(output bit [I2C_DATA_WIDTH-1:0] data [], input int line );
+task read_data(output bit [I2C_DATA_WIDTH-1:0] data [], input int num_reads );
     bit [WB_DATA_WIDTH-1:0] temp;
 
-    data = new[line];
+    data = new[num_reads];
     temp = 8'h45;
 
-    foreach(data[i]) begin
+    for (int i = 0; i < (num_reads); i++) begin
         wb_bus.master_write(CMDR, 8'bxxxx_x010);
         wait(irq);
         wb_bus.master_read(DPR, temp);
@@ -163,6 +163,13 @@ task read_data(output bit [I2C_DATA_WIDTH-1:0] data [], input int line );
         //$display("data[%d]: %d", i, data[i])
         wb_bus.master_read(CMDR, temp);
     end
+
+    wb_bus.master_write(CMDR, 8'bxxxx_x011);
+    wait(irq);
+    wb_bus.master_read(DPR, temp);
+    data[num_reads] = temp;
+    //$display("data[%d]: %d", i, data[i])
+    wb_bus.master_read(CMDR, temp);    
 
 endtask
 
