@@ -140,11 +140,91 @@ task provide_read_data ( input bit [I2C_DATA_WIDTH-1:0] read_data [], output bit
     transfer_complete = 1'b1;
 endtask
 
+
+
+
+
 // ***********************************************
 // wait_for_i2c_transfer: secondary listening FSM
 // only records activity
 task monitor ( output bit [I2C_ADDR_WIDTH-1:0] addr, output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0] data []);
+  bit [I2C_DATA_WIDTH-1:0] data_in_m [$];
+  bit [I2C_DATA_WIDTH-1:0] read_in_m [$];
+  listen_states_t listen_state;
+  bit [6:0] addr_heard;
+  bit [7:0] data_heard;
+  bit [7:0] byte_out;
+  bit meaning; // 0 if data, 1 if start/stop
+  bit data_sda;
+  bit finished;
+  int size;
 
+  finished = 1'b0;
+  listen_state = IDLE;
+
+  while(1)
+  begin
+    case(listen_state)
+    IDLE  : begin
+      check_read(meaning, data_sda);
+      if(meaning) begin if(data_sda) listen_state = ADDR; end
+    end
+    ADDR  : begin
+      check_read(meaning, data_sda);
+      for (int i = 0; i < 7; i++) begin
+        check_read(meaning, data_sda);
+        if(meaning) begin if(data_sda) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
+        else
+          addr_heard[6-i] = data_sda;
+      end
+      addr = addr_heard;
+      if(finished) break;
+      $display("addr heard: %h", addr_heard);
+      check_read(meaning, data_sda); 
+        if(meaning) begin if(data_sda) listen_state = ADDR; else begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end end
+        else 
+          begin 
+            if (data_sda) begin op = I2C_READ; listen_state = READ; end
+            else begin op = I2C_WRITE; listen_state = WRITE; end 
+            wait(scl_i); wait(!scl_i);
+          end
+    end
+    WRITE : begin
+      for (int i = 0; i < 8; i++) begin
+        check_read(meaning, data_sda); 
+        if(meaning) begin 
+          if(data_sda) listen_state = ADDR; 
+          else begin // stop condition (write data back)
+            $display("STOP received");
+            listen_state = IDLE; 
+            size = data_in_m.size();
+            data = new[size];
+            for(int i = 0; i<size; i++) data[i] = data_in_m.pop_back(); 
+            finished = 1'b1; break; end
+        end
+        data_heard[7-i] = sda_i;
+      end
+      if(finished) break;
+      data_in_m.push_front(data_heard);
+      $display("data heard: %d", data_heard);
+      listen_state = WRITE;
+      wait(scl_i); wait(!scl_i);
+    end
+    READ  : begin
+      byte_out = read_in_m.pop_back();
+
+      $display("byte out: %d", byte_out);
+
+      for(int i = 0; i<8; i++)begin
+        wait(scl_i); wait(!scl_i);
+      end
+    check_read(meaning, data_sda);
+    if(data_sda) begin listen_state = IDLE; $display("STOP received"); finished = 1'b1; break; end
+    end
+    default : listen_state = IDLE;
+    endcase
+    if(finished) break;
+ end
 endtask
 
 endinterface

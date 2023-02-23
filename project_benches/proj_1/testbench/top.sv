@@ -1,4 +1,5 @@
 `timescale 1ns / 10ps
+import data_pkg::*;
 
 module top();
 
@@ -14,6 +15,10 @@ bit [7:0] wb_data;
 bit [7:0] cmdr_temp;
 bit i2c_op;
 
+
+bit [7:0] monitor_i2c_addr;
+i2c_op_t monitor_i2c_op;
+bit [7:0] monitor_i2c_data [];
 
 parameter 
   CSR = 8'h00,
@@ -67,12 +72,15 @@ initial
   end
 
 // ****************************************************************************
-// Call wait_for_i2c_transfer (probably not the correct way)
+// Call i2c_bus.monitor
 
-// initial
-//   begin : i2c_waiting_for_transfer
-//     i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
-//   end
+initial
+  begin : monitor_i2c_bus
+    
+      i2c_bus.monitor(monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
+      $display("monitor_i2c_addr: %x\nmonitor_i2c_op: %x\nmonitor_i2c_data: %d\n", monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
+    
+  end
 
 // ****************************************************************************
 // Define the flow of the simulation
@@ -88,6 +96,7 @@ initial
   // ================= test stimulus #1 =======================
   // Write 32 incrementing values, from 0 to 31, to the i2c_bus
   // ==========================================================
+  $display("===== START TEST 1 =====");
   fork
     begin
       set_bus(8'h05); // set bus 5
