@@ -84,7 +84,6 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
     end
     ADDR  : begin
       gotostart = 0;
-      // check_read(meaning, data);
       for (int i = 0; i < 7; i++) begin
         check_read(meaning, data);
         if(meaning) begin if(data) begin
@@ -92,7 +91,6 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
           trigger_monitor(); end
           else begin 
             listen_state = IDLE;
-            $display("STOP received");
             trigger_monitor();
             finished = 1'b1; break; 
             end end 
@@ -105,9 +103,8 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
         if(meaning) begin if(data) begin
           listen_state = ADDR; 
           trigger_monitor(); end
-          else begin 
+          else begin // stop case
             listen_state = IDLE;
-            $display("STOP received");
             trigger_monitor();
             finished = 1'b1; break; 
             end end 
@@ -127,7 +124,6 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
           trigger_monitor(); 
           break; end
           else begin // stop condition (write data back)
-            $display("STOP received");
             listen_state = IDLE; 
             size = data_in.size();
             write_data = new[size];
@@ -153,23 +149,16 @@ task wait_for_i2c_transfer ( output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0]
       for(int i = 0; i<8; i++)begin
         drive_sda(byte_out[7-i]);
       end
-
-    // $display("DEBUG 1");
       
     check_read(meaning, data);
     if(data) begin 
-      // $display("DEBUG 2");
       check_read(meaning, data);
-      // $display("DEBUG 3");
         if(meaning & !data) begin
-          // $display("DEBUG 4");
           listen_state = IDLE; 
           finished = 1'b1;
-          $display("STOP received"); 
           trigger_monitor();
           break; end
         else if(meaning & data) begin
-          // $display("DEBUG 5");
           listen_state = ADDR;
           trigger_monitor();
           continue; end
@@ -195,7 +184,8 @@ bit monitor_enable = 0;
 bit monitor_busy = 0;
 
 task trigger_monitor ();
-
+  // when this is called, it will cycle through the monitor task exactly once
+  // using a sequence of 3 wait statements that procedurally manage control
   if(monitor_enable) begin
     monitor_busy = 1;
     wait(!monitor_enable);
@@ -211,18 +201,20 @@ endtask
 task monitor ( output bit [I2C_ADDR_WIDTH-1:0] addr, output i2c_op_t op, output bit [I2C_DATA_WIDTH-1:0] data []);
   integer num_bytes;
 
-  monitor_enable = 1;
+  monitor_enable = 1; // monitor_enable = 1 by default. Only goes low after all of the data has been captured
 
-  wait(monitor_busy);
+  wait(monitor_busy); // monitor busy flag will ONLY raise when trigger_monitor is called
 
+  // capture all data needed to output
   addr = addr_heard;
   op = op_heard;
   num_bytes = data_in.size();
   data = new[num_bytes];
   for ( int i = 0; i < num_bytes; i++) data[i] = data_in.pop_back();
 
-  monitor_enable = 0;
-  wait(!monitor_busy);
+  monitor_enable = 0; // release trigger_monitor so it can lower the busy flag
+
+  wait(!monitor_busy); // busy flag lowered, task will loop because it is in a forever block
 
 endtask
 
