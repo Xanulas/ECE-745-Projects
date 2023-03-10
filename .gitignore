@@ -3,3 +3,5 @@ project_benches/*/sim/work/
 project_benches/*/sim/transcript
 
 project_benches/*/sim/vsim.wlf
+
+project_benches/lab_1/*
