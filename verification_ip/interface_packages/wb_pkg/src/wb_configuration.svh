@@ -1,28 +1,28 @@
 class wb_configuration extends ncsu_configuration;
   
-  rand bit [5:0] min_delay;
-  rand bit [5:0] max_delay;
-  rand bit       sop_eop_polarity;
+  // rand bit [5:0] min_delay;
+  // rand bit [5:0] max_delay;
+  // rand bit       sop_eop_polarity;
   bit            enable;
-  bit            collect_coverage;
+  // bit            collect_coverage;
 
-  constraint delay_range_c { min_delay < max_delay; }
+  // constraint delay_range_c { min_delay < max_delay; }
 
-  covergroup wb_configuration_cg;
-  	option.per_instance = 1;
-    option.name = name;
-  	coverpoint min_delay;
-  	coverpoint max_delay;
-  	coverpoint sop_eop_polarity;
-  endgroup
+  // covergroup wb_configuration_cg;
+  // 	option.per_instance = 1;
+  //   option.name = name;
+  // 	coverpoint min_delay;
+  // 	coverpoint max_delay;
+  // 	coverpoint sop_eop_polarity;
+  // endgroup
 
-  function void sample_coverage();
-  	wb_configuration_cg.sample();
-  endfunction
+  // function void sample_coverage();
+  // 	wb_configuration_cg.sample();
+  // endfunction
   
   function new(string name=""); 
     super.new(name);
-    wb_configuration_cg = new;
+    // wb_configuration_cg = new;
   endfunction
 
   virtual function string convert2string();

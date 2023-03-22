@@ -25,18 +25,14 @@ class wb_monitor extends ncsu_component#(.T(wb_transaction));
         if ( enable_transaction_viewing) begin
            monitored_trans.start_time = $time;
         end
-        bus.monitor(monitored_trans.header,
-                    monitored_trans.payload,
-                    monitored_trans.trailer,
-                    monitored_trans.delay
-                    );
-        $display("%s wb_monitor::run() header 0x%x payload 0x%p trailer 0x%x delay 0x%x",
-                 get_full_name(),
-                 monitored_trans.header, 
-                 monitored_trans.payload, 
-                 monitored_trans.trailer, 
-                 monitored_trans.delay
-                 );
+        bus.master_monitor(monitored_trans.addr, monitored_trans.data, ~monitored_trans.op);
+        // $display("%s wb_monitor::run() header 0x%x payload 0x%p trailer 0x%x delay 0x%x",
+        //          get_full_name(),
+        //          monitored_trans.header, 
+        //          monitored_trans.payload, 
+        //          monitored_trans.trailer, 
+        //          monitored_trans.delay
+        //          );
         agent.nb_put(monitored_trans);
         if ( enable_transaction_viewing) begin
            monitored_trans.end_time = $time;

@@ -5,14 +5,14 @@ class i2c_transaction extends ncsu_transaction;
        bit [6:0] addr;
        bit [7:0] data;
 
-  rand bit [5:0]  delay;
+  // rand bit [5:0]  delay;
 
   function new(string name=""); 
     super.new(name);
   endfunction
 
   virtual function string convert2string();
-     return {super.convert2string(),$sformatf("op:0x%x addr:0x%p data:0x%x delay:%d", op, addr, data, delay)};
+     return {super.convert2string(),$sformatf("op:0x%x addr:0x%p data:0x%x", op, addr, data)};
   endfunction
 
   function bit compare(i2c_transaction rhs);
@@ -26,7 +26,6 @@ class i2c_transaction extends ncsu_transaction;
      $add_attribute(transaction_view_h,op,"op");
      $add_attribute(transaction_view_h,addr,"addr");
      $add_attribute(transaction_view_h,data,"data");
-     $add_attribute(transaction_view_h,delay,"delay");
      $end_transaction(transaction_view_h,end_time);
      $free_transaction(transaction_view_h);
   endfunction

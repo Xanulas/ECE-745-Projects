@@ -16,9 +16,9 @@ class i2c_configuration extends ncsu_configuration;
   	coverpoint sop_eop_polarity;
   endgroup
 
-  function void sample_coverage();
-  	i2c_configuration_cg.sample();
-  endfunction
+  // function void sample_coverage();
+  // 	i2c_configuration_cg.sample();
+  // endfunction
   
   function new(string name=""); 
     super.new(name);

@@ -1,4 +1,4 @@
-class i2cmb_test_base extends ncsu_component#(.T(i2c_transaction));
+class i2cmb_test extends ncsu_component#(.T(i2c_transaction));
 
   i2cmb_env_configuration  cfg;
   i2cmb_environment        env;
@@ -8,7 +8,7 @@ class i2cmb_test_base extends ncsu_component#(.T(i2c_transaction));
   function new(string name = "", ncsu_component_base parent = null); 
     super.new(name,parent);
     cfg = new("cfg");
-    cfg.sample_coverage();
+    // cfg.sample_coverage();
     env = new("env",this);
     env.set_configuration(cfg);
     env.build();

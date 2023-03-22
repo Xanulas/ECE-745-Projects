@@ -1,5 +1,9 @@
 `timescale 1ns / 10ps
 import data_pkg::*;
+import wb_pkg::*;
+import i2c_pkg::*;
+import ncsu_pkg::*;
+import i2cmb_env_pkg::*;
 
 module top();
 
@@ -61,229 +65,6 @@ initial
     #113 rst = 0;
   end
 
-
-// ****************************************************************************
-// Monitor Wishbone bus and display transfers in the transcript
-
-initial
-  begin : wb_monitoring
-    wb_bus.master_monitor(monitor_addr,monitor_data,monitor_we);
-    $display("addr: %x\ndata: %x\nwe: %x\n", monitor_addr, monitor_data, monitor_we);
-  end
-
-// ****************************************************************************
-// Call i2c_bus.monitor
-
-initial
-  forever begin : monitor_i2c_bus
-      i2c_bus.monitor(monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
-
-      if (monitor_i2c_op == I2C_READ) $display("I2C_BUS READ Transfer: ADDR - %x", monitor_i2c_addr);
-      else $display("I2C_BUS WRITE Transfer: ADDR - %x", monitor_i2c_addr);
-
-      $write("DATA - ");
-      for (int i; i < monitor_i2c_data.size(); i++) $write("%d ", $unsigned(monitor_i2c_data[i]));
-      $write("\n");
-
-      // $display("monitor_i2c_addr: %x\nmonitor_i2c_op: %x\nmonitor_i2c_data: %d\n", monitor_i2c_addr, monitor_i2c_op, monitor_i2c_data);
-  end
-
-// ****************************************************************************
-// Define the flow of the simulation
-
-initial
-  begin : test_flow
-  while(rst) @(clk) 
-  begin
-  #1000
-
-
-  // ==========================================================
-  // ================= test stimulus #1 =======================
-  // Write 32 incrementing values, from 0 to 31, to the i2c_bus
-  // ==========================================================
-  $display("===== START TEST 1 =====");
-  fork
-    begin
-      set_bus(8'h05); // set bus 5
-      issue_start();
-      write_data(8'h44); // set address 22 + 0      
-      for (int i = 0; i < 32; i++) begin
-        wb_data = i;
-        write_data(wb_data);
-      end
-      issue_stop();
-    end
-    begin
-      i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
-    end
-  join
-
-  #1000
-
-  $display("===== FINISH TEST 1 =====\n\n");
-  
-  $display("===== START TEST 2 =====");
-
-  // ==========================================================
-  // ================= test stimulus #2 =======================
-  // Read 32 values from the i2c_bus (expecting 100 - 131)
-  // ==========================================================  
-  fork
-    begin // TASK 1: SET THE DATA TO BE READ
-      bit transfer_complete;
-      bit [7:0] insert_byte;
-      bit [7:0] read_set [32];
-      for (int i = 0; i < 32; i++) begin
-        insert_byte = i + 100;
-        read_set[i] = insert_byte;
-      end
-      transfer_complete = 1'b0;
-      i2c_bus.provide_read_data(read_set, transfer_complete);
-      end
-    begin // TASK 2: ISSUE THE WISHBONE READ COMMANDS
-      set_bus(8'h05); // set bus 5
-      issue_start();
-      write_data(8'h45); // set address 22 + 1          
-      read_data(i2c_read_data, 32);
-      issue_stop();
-    end
-    begin // TASK 3: I2C DRIVES THE SDA
-      i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
-    end
-  join
-
-#1000;
-
-  $display("===== FINISH TEST 2 =====\n\n");
-  
-  $display("===== START TEST 3 =====");
-
-  // =========================================================
-  // ================= test stimulus #3 =======================
-  // Alternate writes and reads for 64 transfers (W: 64-127) / (R: 63-0)
-  // ==========================================================  
-  fork
-    begin // TASK 1: SET THE DATA TO BE READ
-      bit transfer_complete;
-      bit [7:0] insert_byte;
-      bit [7:0] read_set [64];
-      for (int i = 0; i < 63; i++) begin
-        insert_byte = 63 - i;
-        read_set[i] = insert_byte;
-      end
-      transfer_complete = 1'b0;
-      i2c_bus.provide_read_data(read_set, transfer_complete);
-    end
-    begin // TASK 2: ISSUE THE WISHBONE READ COMMANDS
-
-      set_bus(8'h05); // set bus 5
-      
-      for(int i; i < 64; i++ ) begin
-
-        // do 1 write
-        issue_start();
-        write_data(8'h44); // set address 22 + 0  
-        wb_data = 64 + i;
-        write_data(wb_data);
-
-        // do 1 read
-        issue_start();
-        write_data(8'h45); // set address 22 + 1          
-        read_data(i2c_read_data, 1);
-
-
-      end
-    issue_stop();
-
-    end
-    begin // TASK 3: I2C DRIVES THE SDA
-      i2c_bus.wait_for_i2c_transfer(i2c_op, i2c_write_data);
-    end
-  join
-
-  #1000;
-
-  $display("===== FINISH TEST 3 =====\n\n");
-
-end // while loop
-end // test flow initial block
-
-// ==========================================================
-// ==========   task to send read from slave ================
-// ==========================================================
-task read_data(output bit [I2C_DATA_WIDTH-1:0] data [], input int num_reads );
-    bit [WB_DATA_WIDTH-1:0] temp;
-
-    data = new[num_reads];
-    temp = 8'h45;
-
-    for (int i = 0; i < (num_reads - 1); i++) begin
-        wb_bus.master_write(CMDR, 8'bxxxx_x010);
-        wait(irq);
-        wb_bus.master_read(DPR, temp);
-        data[i] = temp;
-        //$display("data[%d]: %d", i, data[i])
-        wb_bus.master_read(CMDR, temp);
-    end
-
-    wb_bus.master_write(CMDR, 8'bxxxx_x011);
-    wait(irq);
-    wb_bus.master_read(DPR, temp);
-    data[num_reads] = temp;
-    //$display("data[%d]: %d", i, data[i])
-    wb_bus.master_read(CMDR, temp);    
-
-endtask
-
-// ==========================================================
-// =============  task to set the i2c bus ===================
-// ==========================================================
-task set_bus(input [7:0] bus_number);
-
-  wb_bus.master_write(CSR,8'b11xx_xxxx); // one time initialization
-  wb_bus.master_write(DPR, bus_number); // data to go to bus, either address or data
-  wb_bus.master_write(CMDR,8'bxxxx_x110); // "do a bus set to bus 5" - the only bus we will 
-  wait(irq); // the dut agreed, will use bus 5
-  wb_bus.master_read(CMDR, cmdr_temp);
-
-endtask
-
-task issue_start(); 
-
-  wb_bus.master_write(CMDR,8'bxxxx_x100); // one time "we are starting now"
-  wait(irq); // DUT agrees that i2c is started
-  wb_bus.master_read(CMDR, cmdr_temp);
-  // wait(irq);
-
-endtask
-
-// ==========================================================
-// =========  task to put data on the i2c bus ===============
-// ==========================================================
-task write_data(input [7:0] data);
-
-  wb_bus.master_write(DPR, data); // arbitrary address to send data to
-  wb_bus.master_write(CMDR,8'bxxxx_x001); // put the addresss on the bus "write"
-  wait(irq); // wait for the DUT to indicate that it knows we are using address 22
-  wb_bus.master_read(CMDR, cmdr_temp);
-  // wait(irq);
-
-endtask
-
-// ==========================================================
-// ===========   task to send the stop bit  =================
-// ==========================================================
-task issue_stop();
-
-  wb_bus.master_write(CMDR,8'bxxxx_x101);
-  wait(irq);
-  wb_bus.master_read(CMDR, cmdr_temp);
-  // wait(irq);  
-
-endtask
-
-
 // ****************************************************************************
 // Instantiate the Wishbone master Bus Functional Model
 wb_if       #(
@@ -310,9 +91,6 @@ wb_bus (
   .dat_o(dat_wr_o),
   .dat_i(dat_rd_i)
   );
-
-
-// INSTANTIATIONS
 
 // ****************************************************************************
 // Instantiate the DUT - I2C Multi-Bus Controller
@@ -356,5 +134,14 @@ i2c_bus (
   .scl_o(scl),
   .sda_o(sda)
 );
+
+
+i2cmb_test test;
+
+initial begin : test_flow
+  test = new("test", null);
+  ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test.env.wb_agent",wb_bus);
+  ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test.env.i2c_agent",i2c_bus);
+end
 
 endmodule
