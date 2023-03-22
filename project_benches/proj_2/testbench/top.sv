@@ -11,14 +11,14 @@ parameter int NUM_I2C_BUSSES = 1;
 
 bit [I2C_DATA_WIDTH] i2c_write_data [];
 bit [I2C_DATA_WIDTH] i2c_read_data [];
-bit [7:0] wb_data;
-bit [7:0] cmdr_temp;
+bit [WB_ADDR_WIDTH-1:0] wb_data;
+bit [WB_ADDR_WIDTH-1:0] cmdr_temp;
 bit i2c_op;
 
 
-bit [7:0] monitor_i2c_addr;
+bit [I2C_ADDR_WIDTH-1:0] monitor_i2c_addr;
 i2c_op_t monitor_i2c_op;
-bit [7:0] monitor_i2c_data [];
+bit [I2C_ADDR_WIDTH-1:0] monitor_i2c_data [];
 
 parameter 
   CSR = 8'h00,

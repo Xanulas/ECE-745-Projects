@@ -5,6 +5,8 @@ class i2cmb_generator extends ncsu_component#(.T(i2c_transaction));
   ncsu_component #(T) agent;
   string trans_name;
 
+  bit [7:0] trans [$];  // unsure about this
+
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
     if ( !$value$plusargs("GEN_TRANS_TYPE=%s", trans_name)) begin
@@ -15,26 +17,25 @@ class i2cmb_generator extends ncsu_component#(.T(i2c_transaction));
   endfunction
 
   virtual task run();
-    foreach (transaction[i]) begin  
-      $cast(transaction[i],ncsu_object_factory::create(trans_name));
-      assert (transaction[i].randomize());
-      agent.bl_put(transaction[i]);
-      $display({get_full_name()," ",transaction[i].convert2string()});
+    fork
+    begin
+      foreach (transaction[i]) begin  
+        $cast(transaction[i],ncsu_object_factory::create(trans_name));
+        assert (transaction[i].randomize());
+        agent.bl_put(transaction[i]);
+        $display({get_full_name()," ",transaction[i].convert2string()});
+      end
     end
+    begin
+      foreach(transaction[i])
+          agent.bl_put(trans[i]);     
+    end
+    join
   endtask
 
   function void set_agent(ncsu_component #(T) agent);
     this.agent = agent;
   endfunction
-
-// trans[$];
-
-// run() begin
-//     fork
-//         foreach(i2c_trans[i])
-//             i2c_agent.bl_put(trans[i]);
-//     join
-// end
 
 // write_wb(data, addr) begin
 //     wb_if.write

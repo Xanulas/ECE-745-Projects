@@ -1,7 +1,10 @@
 class i2c_transaction extends ncsu_transaction;
   `ncsu_register_object(i2c_transaction)
 
-       bit [63:0] header, payload [8], trailer;
+       bit op;
+       bit [6:0] addr;
+       bit [7:0] data;
+
   rand bit [5:0]  delay;
 
   function new(string name=""); 
@@ -9,20 +12,20 @@ class i2c_transaction extends ncsu_transaction;
   endfunction
 
   virtual function string convert2string();
-     return {super.convert2string(),$sformatf("header:0x%x payload:0x%p trailer:0x%x delay:%d", header, payload, trailer, delay)};
+     return {super.convert2string(),$sformatf("op:0x%x addr:0x%p data:0x%x delay:%d", op, addr, data, delay)};
   endfunction
 
   function bit compare(i2c_transaction rhs);
-    return ((this.header  == rhs.header ) && 
-            (this.payload == rhs.payload) &&
-            (this.trailer == rhs.trailer) );
+    return ((this.op  == rhs.op ) && 
+            (this.addr == rhs.addr) &&
+            (this.data == rhs.data) );
   endfunction
 
   virtual function void add_to_wave(int transaction_viewing_stream_h);
      super.add_to_wave(transaction_viewing_stream_h);
-     $add_attribute(transaction_view_h,header,"header");
-     $add_attribute(transaction_view_h,payload,"payload");
-     $add_attribute(transaction_view_h,trailer,"trailer");
+     $add_attribute(transaction_view_h,op,"op");
+     $add_attribute(transaction_view_h,addr,"addr");
+     $add_attribute(transaction_view_h,data,"data");
      $add_attribute(transaction_view_h,delay,"delay");
      $end_transaction(transaction_view_h,end_time);
      $free_transaction(transaction_view_h);

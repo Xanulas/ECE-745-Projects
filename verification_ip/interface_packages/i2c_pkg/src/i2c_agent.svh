@@ -54,10 +54,4 @@ class i2c_agent extends ncsu_component#(.T(i2c_transaction));
      fork monitor.run(); join_none
   endtask
 
-    // task bl_put();
-    // begin  
-    //     driver.bl_put(trans);
-    // end
-    // endtask
-
 endclass

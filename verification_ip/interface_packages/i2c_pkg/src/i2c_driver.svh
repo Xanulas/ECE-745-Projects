@@ -14,11 +14,11 @@ class i2c_driver extends ncsu_component#(.T(i2c_transaction));
 
   virtual task bl_put(T trans);
 
-  if(trans.header == WRITE) wait_for_i2c_transfer();
+  if(trans.header == 1'b0) bus.wait_for_i2c_transfer(); // 1'b0 == WRITE - paramaterize later
   else
       begin
-      provide_read_data();
-      wait_for_i2c_transfer();
+      bus.provide_read_data();
+      bus.wait_for_i2c_transfer();
       end
 
     $display({get_full_name()," ",trans.convert2string()});
