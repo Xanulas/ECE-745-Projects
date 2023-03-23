@@ -16,7 +16,7 @@ class i2cmb_test extends ncsu_component#(.T(i2c_transaction));
     gen.set_agent_i2c(env.get_i2c_agent());
     gen.set_agent_wb(env.get_wb_agent());
     // gen.set_transaction_i2c(env.get_i2c_agent())
-    // gen.set_transaction_wb(env.get_i2c_agent());
+    // gen.set_transaction_wb(env.get_i2c_transaction());
   endfunction
 
   virtual task run();

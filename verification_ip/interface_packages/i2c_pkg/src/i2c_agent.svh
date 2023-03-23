@@ -3,7 +3,7 @@ class i2c_agent extends ncsu_component#(.T(i2c_transaction));
   i2c_configuration configuration;
   i2c_driver        driver;
   i2c_monitor       monitor;
-  i2c_coverage      coverage;
+  // i2c_coverage      coverage;
   ncsu_component #(T) subscribers[$];
   virtual i2c_if    bus;
 

@@ -1,9 +1,11 @@
 // class i2cmb_generator #(type GEN_TRANS)  extends ncsu_component#(.T(i2c_transaction));
 class i2cmb_generator extends ncsu_component;
 
-  i2c_transaction i2c_trans[10];
-  wb_transaction wb_trans[10];
   wb_transaction wb_trans_queue [$];
+  i2c_transaction i2c_trans_queue [$];  
+
+  i2c_transaction i2c_trans[10];
+  wb_transaction wb_trans[10];  
 
   i2c_agent i2c_agent_gen;
   wb_agent wb_agent_gen;
