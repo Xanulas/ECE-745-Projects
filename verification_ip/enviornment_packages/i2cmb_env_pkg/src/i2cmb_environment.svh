@@ -16,10 +16,10 @@ class i2cmb_environment extends ncsu_component#(.T(i2c_transaction));
   endfunction
 
   virtual function void build();
-    i2c_agent_env = new("i2c_agent",this);
+    i2c_agent_env = new("i2c_agent_env",this);
     i2c_agent_env.set_configuration(configuration.i2c_agent_config);
     i2c_agent_env.build();
-    wb_agent_env = new("wb_agent",this);
+    wb_agent_env = new("wb_agent_env",this);
     wb_agent_env.set_configuration(configuration.wb_agent_config);
     wb_agent_env.build();
     pred  = new("pred", this);

@@ -17,11 +17,11 @@ class i2cmb_generator extends ncsu_component;
 
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
-    if ( !$value$plusargs("GEN_TRANS_TYPE=%s", trans_name)) begin
-      $display("FATAL: +GEN_TRANS_TYPE plusarg not found on command line");
-      $fatal;
-    end
-    $display("%m found +GEN_TRANS_TYPE=%s", trans_name);
+    // if ( !$value$plusargs("GEN_TRANS_TYPE=%s", trans_name)) begin
+    //   $display("FATAL: +GEN_TRANS_TYPE plusarg not found on command line");
+    //   $fatal;
+    // end
+    // $display("%m found +GEN_TRANS_TYPE=%s", trans_name);
   endfunction
 
   virtual task run();

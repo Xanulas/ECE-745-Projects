@@ -139,9 +139,9 @@ i2c_bus (
 i2cmb_test test;
 
 initial begin : test_flow
+  
+  ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test.env.wb_agent_env",wb_bus);
+  ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test.env.i2c_agent_env",i2c_bus);
   test = new("test", null);
-  ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test.env.wb_agent",wb_bus);
-  ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test.env.i2c_agent",i2c_bus);
 end
-
 endmodule
