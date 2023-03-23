@@ -11,7 +11,7 @@ import data_pkg::*;
 `include "src/i2cmb_scoreboard.svh"
 `include "src/i2cmb_predictor.svh"
 `include "src/i2cmb_coverage.svh"
-`include "src/i2cmb_enviornment.svh"
+`include "src/i2cmb_environment.svh"
 `include "src/i2cmb_test.svh"
 
 

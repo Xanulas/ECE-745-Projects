@@ -22,7 +22,7 @@ class i2cmb_env_configuration extends ncsu_configuration;
   function new(string name=""); 
     super.new(name);
     // i2cmb_env_configuration_cg = new;
-    // p0_agent_config = new("p0_agent_config");
+    i2c_agent_config = new("i2c_agent_config");
     wb_agent_config = new("wb_agent_config");
     // p1_agent_config.collect_coverage=0;
     // p0_agent_config.sample_coverage();

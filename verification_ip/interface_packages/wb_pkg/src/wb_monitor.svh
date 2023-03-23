@@ -6,6 +6,8 @@ class wb_monitor extends ncsu_component#(.T(wb_transaction));
   T monitored_trans;
   ncsu_component #(T) agent;
 
+  bit wb_we;
+
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
   endfunction
@@ -25,7 +27,9 @@ class wb_monitor extends ncsu_component#(.T(wb_transaction));
         if ( enable_transaction_viewing) begin
            monitored_trans.start_time = $time;
         end
-        bus.master_monitor(monitored_trans.addr, monitored_trans.data, ~monitored_trans.op);
+
+        bus.master_monitor(monitored_trans.addr, monitored_trans.data, wb_we);
+        monitored_trans.op = ~(wb_we);
         // $display("%s wb_monitor::run() header 0x%x payload 0x%p trailer 0x%x delay 0x%x",
         //          get_full_name(),
         //          monitored_trans.header, 

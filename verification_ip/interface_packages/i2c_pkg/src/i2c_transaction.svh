@@ -1,9 +1,11 @@
 class i2c_transaction extends ncsu_transaction;
   `ncsu_register_object(i2c_transaction)
 
-       bit op;
+    
+       bit transfer_complete;
+       i2c_op_t op;
        bit [6:0] addr;
-       bit [7:0] data;
+       bit [7:0] data [];
 
   // rand bit [5:0]  delay;
 
