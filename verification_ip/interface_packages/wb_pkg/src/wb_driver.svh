@@ -1,10 +1,3 @@
-// parameter 
-//     CSR = 8'h00,
-//     DPR = 8'h01,
-//     CMDR = 8'h02,
-//     FSMR = 8'h03;
-
-
 class wb_driver extends ncsu_component#(.T(wb_transaction));
 
   function new(string name = "", ncsu_component_base  parent = null); 

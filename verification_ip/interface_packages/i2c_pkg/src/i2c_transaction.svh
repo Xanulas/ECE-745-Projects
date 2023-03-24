@@ -23,13 +23,13 @@ class i2c_transaction extends ncsu_transaction;
             (this.data == rhs.data) );
   endfunction
 
-  virtual function void add_to_wave(int transaction_viewing_stream_h);
-     super.add_to_wave(transaction_viewing_stream_h);
-     $add_attribute(transaction_view_h,op,"op");
-     $add_attribute(transaction_view_h,addr,"addr");
-     $add_attribute(transaction_view_h,data,"data");
-     $end_transaction(transaction_view_h,end_time);
-     $free_transaction(transaction_view_h);
-  endfunction
+  // virtual function void add_to_wave(int transaction_viewing_stream_h);
+  //    super.add_to_wave(transaction_viewing_stream_h);
+  //    $add_attribute(transaction_view_h,op,"op");
+  //    $add_attribute(transaction_view_h,addr,"addr");
+  //    $add_attribute(transaction_view_h,data,"data");
+  //    $end_transaction(transaction_view_h,end_time);
+  //    $free_transaction(transaction_view_h);
+  // endfunction
 
 endclass

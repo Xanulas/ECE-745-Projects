@@ -19,7 +19,6 @@ class i2c_monitor extends ncsu_component#(.T(i2c_transaction));
   endfunction
   
   virtual task run ();
-    // bus.wait_for_reset();
       forever begin
         monitored_trans = new("monitored_trans");
         if ( enable_transaction_viewing) begin
@@ -29,7 +28,7 @@ class i2c_monitor extends ncsu_component#(.T(i2c_transaction));
                     monitored_trans.op,
                     monitored_trans.data
                     );
-        $display("%s i2c_monitor::run() header 0x%x payload 0x%p trailer 0x%x",
+        $display("%s i2c_monitor::run() addr 0x%x op 0x%p data 0x%x",
                  get_full_name(),
                  monitored_trans.addr, 
                  monitored_trans.op, 
