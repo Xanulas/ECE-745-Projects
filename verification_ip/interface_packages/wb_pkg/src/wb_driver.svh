@@ -19,20 +19,18 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
     configuration = cfg;
   endfunction
 
-  virtual task bl_put(T trans);
 
+  virtual task bl_put(T trans);
+    bit [7:0] temp_store;
     bus.master_write(trans.addr, trans.data);
 
     if(trans.addr == CMDR)
       begin
-      $display("CMDR A");
       bus.wait_for_interrupt();
-      bus.master_read(trans.addr, trans.data);
-      $display("CMDR B");
+      bus.master_read(trans.addr, temp_store);
       end
 
     $display({get_full_name()," ",trans.convert2string()});
-    bus.master_write(trans.addr, trans.data);
 
   endtask
 

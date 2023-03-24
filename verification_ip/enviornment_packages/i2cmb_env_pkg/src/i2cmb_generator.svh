@@ -26,19 +26,38 @@ class i2cmb_generator extends ncsu_component;
     // $display("%m found +GEN_TRANS_TYPE=%s", trans_name);
   endfunction
 
+
+  wb_transaction wb_trans_insert;
+  bit [7:0] cmdr_temp;
+  int size;
+  bit [7:0] insert_byte;  
+
   virtual task run();
+
+      wb_trans_insert = new("csr init");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = CSR;
+      wb_trans_insert.data = CSR_INIT;
+      wb_agent_gen.bl_put(wb_trans_insert);
+
+      wb_trans_insert = new("choose bus");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = DPR;
+      wb_trans_insert.data = 8'h05;
+      wb_agent_gen.bl_put(wb_trans_insert);
+
+      wb_trans_insert = new("perform write to bus");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = CMDR;
+      wb_trans_insert.data = CMDR_SET_BUS;      
+      wb_agent_gen.bl_put(wb_trans_insert);
+
+
     fork
     begin
-      foreach (wb_trans[i]) begin
-        $cast(wb_trans[i],ncsu_object_factory::create(trans_name));
-        assert (wb_trans[i].randomize());
-        wb_agent_gen.bl_put(wb_trans[i]);
-        $display({get_full_name()," ",wb_trans[i].convert2string()});
-      end
-    end
-    begin
-      foreach(wb_trans[i])
-          wb_agent_gen.bl_put(wb_trans_queue[i]);     
+      size = wb_trans_queue.size();
+      for(int i = 0; i < size; i++)
+        wb_agent_gen.bl_put(wb_trans_queue.pop_back());     
     end
     join
   endtask
@@ -59,64 +78,49 @@ class i2cmb_generator extends ncsu_component;
   //   this.wb_trans = trans;
   // endfunction 
 
-
-  
-  wb_transaction wb_trans_insert;
-  bit [7:0] cmdr_temp;
   task write_wb(input bit [7:0] data [], input bit [1:0] addr);
 
-      wb_trans_insert = new("set i2c_address in DPR");
+      wb_trans_insert = new("A");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = CMDR;
+      wb_trans_insert.data = CMDR_START;      
+      wb_trans_queue.push_front(wb_trans_insert); 
+
+      wb_trans_insert = new("B");
       wb_trans_insert.op = WB_WRITE;
       wb_trans_insert.addr = DPR;
       wb_trans_insert.data = addr << 1;
       wb_trans_queue.push_front(wb_trans_insert);
 
-      wb_trans_insert = new("perform write of address from DPR to bus");
+
+      wb_trans_insert = new("C");
       wb_trans_insert.op = WB_WRITE;
       wb_trans_insert.addr = CMDR;
-      wb_trans_insert.data = CMDR_WRITE;      
+      wb_trans_insert.data = CMDR_WRITE;
       wb_trans_queue.push_front(wb_trans_insert);
 
-      foreach(data[i]) begin
-      wb_trans_insert = new("write data to DPR");
-      wb_trans_insert.op = WB_WRITE;
-      wb_trans_insert.addr = DPR;
-      wb_trans_insert.data = data[i]; 
-      wb_trans_queue.push_front(wb_trans_insert);       
+      for(int i = 0; i < 32; i++) begin
+        wb_trans_insert = new("D");
+        wb_trans_insert.op = WB_WRITE;
+        wb_trans_insert.addr = DPR;
+        wb_trans_insert.data = i; 
+        wb_trans_queue.push_front(wb_trans_insert);       
 
-      wb_trans_insert = new("perform write of data from DPR to bus");
-      wb_trans_insert.op = WB_WRITE;
-      wb_trans_insert.addr = CMDR;
-      wb_trans_insert.data = CMDR_WRITE;      
-      wb_trans_queue.push_front(wb_trans_insert);      
+        wb_trans_insert = new("E");
+        wb_trans_insert.op = WB_WRITE;
+        wb_trans_insert.addr = CMDR;
+        wb_trans_insert.data = CMDR_WRITE;      
+        wb_trans_queue.push_front(wb_trans_insert);      
       end
 
-      wb_trans_insert = new("write stop command to DPR");
-      wb_trans_insert.op = WB_WRITE;
-      wb_trans_insert.addr = DPR;
-      wb_trans_insert.data = CMDR_STOP; 
-      wb_trans_queue.push_front(wb_trans_insert); 
 
-      wb_trans_insert = new("perform write of stop command from DPR to bus");
+      wb_trans_insert = new("F");
       wb_trans_insert.op = WB_WRITE;
       wb_trans_insert.addr = CMDR;
-      wb_trans_insert.data = CMDR_WRITE;      
+      wb_trans_insert.data = CMDR_STOP;      
       wb_trans_queue.push_front(wb_trans_insert);
 
   endtask
-
-    task cast_to_array();
-      int size;
-      size = wb_trans_queue.size();
-      wb_trans = new[size];
-      for(int i = 0; i < size; i++)
-        wb_trans[i] = wb_trans_queue.pop_back();
-    endtask
-      
-
-  // task sync()
-    
-  // endtask
 
 endclass
 

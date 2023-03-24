@@ -132,5 +132,11 @@ initial begin : test_flow
   ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test.env.i2c_agent_env",i2c_bus);
   test = new("test", null);
 
+  test.run();
+
+  #2000
+
+  $finish;
+
 end
 endmodule

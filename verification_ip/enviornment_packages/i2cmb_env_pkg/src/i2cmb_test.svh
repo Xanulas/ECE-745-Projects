@@ -21,13 +21,7 @@ class i2cmb_test extends ncsu_component#(.T(i2c_transaction));
   endfunction
 
   virtual task run();
-      bit [7:0] insert_byte;
-      for (int i = 0; i < 32; i++) begin
-        insert_byte = i;
-        test_one_data[i] = insert_byte;
-      end
      gen.write_wb(test_one_data, 8'h22);
-     gen.cast_to_array();
 
      env.run();
      gen.run();
