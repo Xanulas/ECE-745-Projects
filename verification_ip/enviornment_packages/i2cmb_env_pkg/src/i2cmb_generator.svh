@@ -4,8 +4,8 @@ class i2cmb_generator extends ncsu_component;
   wb_transaction wb_trans_queue [$];
   i2c_transaction i2c_trans_queue [$];  
 
-  i2c_transaction i2c_trans[10];
-  wb_transaction wb_trans[10];  
+  i2c_transaction i2c_trans[];
+  wb_transaction wb_trans[];  
 
   i2c_agent i2c_agent_gen;
   wb_agent wb_agent_gen;
@@ -29,7 +29,7 @@ class i2cmb_generator extends ncsu_component;
   virtual task run();
     fork
     begin
-      foreach (wb_trans[i]) begin  
+      foreach (wb_trans[i]) begin
         $cast(wb_trans[i],ncsu_object_factory::create(trans_name));
         assert (wb_trans[i].randomize());
         wb_agent_gen.bl_put(wb_trans[i]);
@@ -51,7 +51,7 @@ class i2cmb_generator extends ncsu_component;
     this.wb_agent_gen = agent;
   endfunction  
 
-  // function void set_transactions_i2c(i2c_transaction trans);
+  // function void set_transactions_i2c(i2c_transaction trans);  
   //   this.i2c_trans = trans;
   // endfunction
 
@@ -59,19 +59,60 @@ class i2cmb_generator extends ncsu_component;
   //   this.wb_trans = trans;
   // endfunction 
 
-  // task write_wb(input [7:0] data, input [1:0] addr);
-  //     wb_bus.master_write(DPR, data);
-  //     wb_bus.master_write(CMDR, 8'bxxxx_x001);
-  //     wait(irq);
-  //     wb_bus.master_read(CMDR, cmdr_temp);
 
-  //     wb_transaction wb_trans_insert;
-  //     wb_trans_insert.op = 1'b0 // "write"
-  //     wb_trans_insert.addr = addr;
-  //     wb_trans_insert.data = data;
+  
+  wb_transaction wb_trans_insert;
+  bit [7:0] cmdr_temp;
+  task write_wb(input bit [7:0] data [], input bit [1:0] addr);
 
-  //     wb_trans_queue.push_front(wb_trans_insert);
-  // endtask
+      wb_trans_insert = new("set i2c_address in DPR");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = DPR;
+      wb_trans_insert.data = addr << 1;
+      wb_trans_queue.push_front(wb_trans_insert);
+
+      wb_trans_insert = new("perform write of address from DPR to bus");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = CMDR;
+      wb_trans_insert.data = CMDR_WRITE;      
+      wb_trans_queue.push_front(wb_trans_insert);
+
+      foreach(data[i]) begin
+      wb_trans_insert = new("write data to DPR");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = DPR;
+      wb_trans_insert.data = data[i]; 
+      wb_trans_queue.push_front(wb_trans_insert);       
+
+      wb_trans_insert = new("perform write of data from DPR to bus");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = CMDR;
+      wb_trans_insert.data = CMDR_WRITE;      
+      wb_trans_queue.push_front(wb_trans_insert);      
+      end
+
+      wb_trans_insert = new("write stop command to DPR");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = DPR;
+      wb_trans_insert.data = CMDR_STOP; 
+      wb_trans_queue.push_front(wb_trans_insert); 
+
+      wb_trans_insert = new("perform write of stop command from DPR to bus");
+      wb_trans_insert.op = WB_WRITE;
+      wb_trans_insert.addr = CMDR;
+      wb_trans_insert.data = CMDR_WRITE;      
+      wb_trans_queue.push_front(wb_trans_insert);
+
+  endtask
+
+    task cast_to_array();
+      int size;
+      size = wb_trans_queue.size();
+      wb_trans = new[size];
+      for(int i = 0; i < size; i++)
+        wb_trans[i] = wb_trans_queue.pop_back();
+    endtask
+      
 
   // task sync()
     

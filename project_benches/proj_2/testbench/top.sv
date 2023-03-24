@@ -7,12 +7,6 @@ import i2cmb_env_pkg::*;
 
 module top();
 
-parameter int WB_ADDR_WIDTH = 2;
-parameter int WB_DATA_WIDTH = 8;
-parameter int I2C_ADDR_WIDTH = 7;
-parameter int I2C_DATA_WIDTH = 8;
-parameter int NUM_I2C_BUSSES = 1;
-
 bit [I2C_DATA_WIDTH] i2c_write_data [];
 bit [I2C_DATA_WIDTH] i2c_read_data [];
 bit [WB_ADDR_WIDTH-1:0] wb_data;
@@ -23,12 +17,6 @@ bit i2c_op;
 bit [I2C_ADDR_WIDTH-1:0] monitor_i2c_addr;
 i2c_op_t monitor_i2c_op;
 bit [I2C_ADDR_WIDTH-1:0] monitor_i2c_data [];
-
-parameter 
-  CSR = 8'h00,
-  DPR = 8'h01,
-  CMDR = 8'h02,
-  FSMR = 8'h03;
 
 bit  clk;
 bit  rst = 1'b1;
@@ -75,6 +63,7 @@ wb_bus (
   // System sigals
   .clk_i(clk),
   .rst_i(rst),
+  .irq_i(irq),
   // Master signals
   .cyc_o(cyc),
   .stb_o(stb),
@@ -135,7 +124,6 @@ i2c_bus (
   .sda_o(sda)
 );
 
-
 i2cmb_test test;
 
 initial begin : test_flow
@@ -143,5 +131,6 @@ initial begin : test_flow
   ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test.env.wb_agent_env",wb_bus);
   ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test.env.i2c_agent_env",i2c_bus);
   test = new("test", null);
+
 end
 endmodule

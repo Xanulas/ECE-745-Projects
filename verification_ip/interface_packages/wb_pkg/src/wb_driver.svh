@@ -1,3 +1,10 @@
+// parameter 
+//     CSR = 8'h00,
+//     DPR = 8'h01,
+//     CMDR = 8'h02,
+//     FSMR = 8'h03;
+
+
 class wb_driver extends ncsu_component#(.T(wb_transaction));
 
   function new(string name = "", ncsu_component_base  parent = null); 
@@ -14,17 +21,15 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
 
   virtual task bl_put(T trans);
 
-    case(trans.addr)
-    2'h0: bus.master_write(trans.addr, trans.data);
-    2'h1: bus.master_write(trans.addr, trans.data);
-    2'h2: begin
-      bus.master_write(trans.addr, trans.data);
+    bus.master_write(trans.addr, trans.data);
+
+    if(trans.addr == CMDR)
+      begin
+      $display("CMDR A");
       bus.wait_for_interrupt();
       bus.master_read(trans.addr, trans.data);
-    end
-    2'h3: bus.master_write(trans.addr, trans.data);
-    default: bus.master_write(trans.addr, trans.data);
-    endcase
+      $display("CMDR B");
+      end
 
     $display({get_full_name()," ",trans.convert2string()});
     bus.master_write(trans.addr, trans.data);

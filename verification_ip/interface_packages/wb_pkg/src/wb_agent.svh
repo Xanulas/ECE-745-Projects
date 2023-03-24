@@ -6,7 +6,7 @@ class wb_agent extends ncsu_component#(.T(wb_transaction));
   wb_coverage      coverage;
   ncsu_component #(T) subscribers[$];
   virtual wb_if    bus;
-
+//
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
     if ( !(ncsu_config_db#(virtual wb_if)::get(get_full_name(), this.bus))) begin;
