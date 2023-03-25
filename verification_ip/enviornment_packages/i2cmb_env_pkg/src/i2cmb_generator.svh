@@ -23,7 +23,19 @@ class i2cmb_generator extends ncsu_component;
     super.new(name,parent);
   endfunction 
 
+  function void set_agent_i2c(i2c_agent agent);
+    this.i2c_agent_gen = agent;
+  endfunction
+
+  function void set_agent_wb(wb_agent agent);
+    this.wb_agent_gen = agent;
+  endfunction  
+
   virtual task run();
+
+    send_to_wb_bl_put("csr init", WB_WRITE, CSR, CSR_INIT);
+    send_to_wb_bl_put("choose bus", WB_WRITE, DPR, (8'h05));
+    send_to_wb_bl_put("perform write to bus", WB_WRITE, CMDR, CMDR_SET_BUS);   
 
     $display("+------------------------------------------------------+");
     $display("|                 BEGIN TEST 1                         |");
@@ -34,10 +46,7 @@ class i2cmb_generator extends ncsu_component;
     i2c_trans.addr = 8'h22;
     i2c_trans.data = i2c_data;
     i2c_trans.op = I2C_WRITE;
-
-    send_to_wb_bl_put("csr init", WB_WRITE, CSR, CSR_INIT);
-    send_to_wb_bl_put("choose bus", WB_WRITE, DPR, (8'h05));
-    send_to_wb_bl_put("perform write to bus", WB_WRITE, CMDR, CMDR_SET_BUS);    
+ 
     fork
       begin
         size = wb_trans_queue.size();
@@ -48,6 +57,7 @@ class i2cmb_generator extends ncsu_component;
         i2c_agent_gen.bl_put(i2c_trans);
       end
     join
+
     $display("+------------------------------------------------------+");
     $display("|                   END TEST 1                         |");
     $display("+------------------------------------------------------+\n\n\n");    
@@ -82,27 +92,36 @@ class i2cmb_generator extends ncsu_component;
     $display("|                   END TEST 2                         |");
     $display("+------------------------------------------------------+\n\n\n");   
 
-    // gen.alternate_rw_wb(test_three_data, 8'h22);
-    // fork
-    //   begin
-    //     size = wb_trans_queue.size();
-    //     for(int i = 0; i < size; i++)
-    //       wb_agent_gen.bl_put(wb_trans_queue.pop_back());     
-    //   end
-    //   begin
-    //     i2c_agent_gen.bl_put(i2c_trans);
-    //   end
-    // join        
+    $display("+------------------------------------------------------+");
+    $display("|                 BEGIN TEST 3                         |");
+    $display("+------------------------------------------------------+");    
+
+    this.alternate_rw_wb(test_three_data, 8'h22);
+
+    i2c_trans = new("TEST 3 READ DATA");
+    i2c_data = new[64];
+    for(int i = 0; i < 64; i++)
+      i2c_data[i] = 63 - i;
+    i2c_trans.addr = 8'h22;
+    i2c_trans.data = i2c_data;
+    i2c_trans.op = I2C_READ;
+
+    fork
+      begin
+        size = wb_trans_queue.size();
+        for(int i = 0; i < size; i++)
+          wb_agent_gen.bl_put(wb_trans_queue.pop_back());     
+      end
+      begin
+        i2c_agent_gen.bl_put(i2c_trans);
+      end
+    join
+
+    $display("+------------------------------------------------------+");
+    $display("|                   END TEST 3                         |");
+    $display("+------------------------------------------------------+\n\n\n");      
     
   endtask
-
-  function void set_agent_i2c(i2c_agent agent);
-    this.i2c_agent_gen = agent;
-  endfunction
-
-  function void set_agent_wb(wb_agent agent);
-    this.wb_agent_gen = agent;
-  endfunction  
 
   task write_wb(input bit [7:0] data [], input bit [1:0] addr);
       // sent start bit
@@ -146,24 +165,23 @@ class i2cmb_generator extends ncsu_component;
 
   task alternate_rw_wb(input bit [7:0] data [], input bit [1:0] addr);
 
-      for(int i = 0; i < 32; i++) begin
+      for(int i = 0; i < 64; i++) begin
 
         // 1 write
         push_to_wb_queue("A", WB_WRITE, CMDR, CMDR_START);
         push_to_wb_queue("B", WB_WRITE, DPR, (addr << 1));
-        push_to_wb_queue("C", WB_WRITE, CMDR, CMDR_WRITE);        
+        push_to_wb_queue("C", WB_WRITE, CMDR, CMDR_WRITE);   
         push_to_wb_queue("D", WB_WRITE, DPR, i);
         push_to_wb_queue("E", WB_WRITE, CMDR, CMDR_WRITE);
 
         // 1 read
         push_to_wb_queue("A", WB_WRITE, CMDR, CMDR_START);
-        push_to_wb_queue("B", WB_WRITE, DPR, ((addr << 1) + 1));
-        push_to_wb_queue("C", WB_WRITE, CMDR, CMDR_WRITE);        
-        push_to_wb_queue("E", WB_WRITE, CMDR, CMDR_READ_ACK);
+        push_to_wb_queue("B", WB_WRITE, DPR, ((addr << 1) | 1'b1));
+        push_to_wb_queue("C", WB_WRITE, CMDR, CMDR_WRITE);     
+        push_to_wb_queue("E", WB_WRITE, CMDR, CMDR_READ_NACK);
      
       end
 
-      push_to_wb_queue("E", WB_WRITE, CMDR, CMDR_READ_ACK);
       // sent stop bit
       push_to_wb_queue("F", WB_WRITE, CMDR, CMDR_STOP);
 
