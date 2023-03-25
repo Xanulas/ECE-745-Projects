@@ -19,7 +19,7 @@ class i2c_driver extends ncsu_component#(.T(i2c_transaction));
   i2c_op_t i2c_op;
   bit [I2C_DATA_WIDTH-1:0] i2c_data [];
 
-  $display({get_full_name()," ",trans.convert2string()});
+  // $display({get_full_name()," ",trans.convert2string()});
 
   if(trans.op == I2C_READ) bus.provide_read_data(trans.data, trans.transfer_complete);
 

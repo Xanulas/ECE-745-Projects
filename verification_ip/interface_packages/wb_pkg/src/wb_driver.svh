@@ -24,7 +24,7 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
       bus.master_read(CMDR, temp_store);
     end
 
-    $display({get_full_name()," ",trans.convert2string()});
+    // $display({get_full_name()," ",trans.convert2string()});
 
   endtask
 

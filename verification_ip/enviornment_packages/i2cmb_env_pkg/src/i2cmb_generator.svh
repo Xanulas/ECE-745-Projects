@@ -171,7 +171,7 @@ class i2cmb_generator extends ncsu_component;
         push_to_wb_queue("A", WB_WRITE, CMDR, CMDR_START);
         push_to_wb_queue("B", WB_WRITE, DPR, (addr << 1));
         push_to_wb_queue("C", WB_WRITE, CMDR, CMDR_WRITE);   
-        push_to_wb_queue("D", WB_WRITE, DPR, i);
+        push_to_wb_queue("D", WB_WRITE, DPR, (i+64));
         push_to_wb_queue("E", WB_WRITE, CMDR, CMDR_WRITE);
 
         // 1 read

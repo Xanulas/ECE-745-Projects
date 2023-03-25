@@ -30,12 +30,12 @@ class wb_monitor extends ncsu_component#(.T(wb_transaction));
 
         bus.master_monitor(monitored_trans.addr, monitored_trans.data, wb_we);
         monitored_trans.op = ~(wb_we);
-        $display("%s wb_monitor::run() addr 0x%x op 0x%p data 0x%x",
-                 get_full_name(),
-                 monitored_trans.addr, 
-                 monitored_trans.op? "Read" : "Write",
-                 monitored_trans.data
-                 );
+        // $display("%s wb_monitor::run() addr 0x%x op 0x%p data 0x%x",
+        //          get_full_name(),
+        //          monitored_trans.addr, 
+        //          monitored_trans.op? "Read" : "Write",
+        //          monitored_trans.data
+        //          );
         agent.nb_put(monitored_trans);
         if ( enable_transaction_viewing) begin
            monitored_trans.end_time = $time;
