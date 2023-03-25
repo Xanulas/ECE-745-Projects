@@ -2,8 +2,8 @@ class wb_transaction extends ncsu_transaction;
   `ncsu_register_object(wb_transaction)
 
        bit op;
-       bit [1:0] addr;
-       bit [7:0] data;
+       bit [WB_ADDR_WIDTH-1:0] addr;
+       bit [WB_DATA_WIDTH-1:0] data;
 
   // rand bit [5:0]  delay;
 

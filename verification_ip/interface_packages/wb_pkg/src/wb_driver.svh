@@ -14,14 +14,15 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
 
 
   virtual task bl_put(T trans);
-    bit [7:0] temp_store;
+    bit [WB_DATA_WIDTH-1:0] temp_store;
     bus.master_write(trans.addr, trans.data);
 
-    if(trans.addr == CMDR)
-      begin
+    if(trans.addr == CMDR) begin
       bus.wait_for_interrupt();
-      bus.master_read(trans.addr, temp_store);
-      end
+      if((trans.data == CMDR_READ_ACK) || (trans.data == CMDR_READ_NACK))
+        bus.master_read(DPR, temp_store);
+      bus.master_read(CMDR, temp_store);
+    end
 
     $display({get_full_name()," ",trans.convert2string()});
 

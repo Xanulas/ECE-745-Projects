@@ -4,7 +4,7 @@ class i2cmb_test extends ncsu_component#(.T(i2c_transaction));
   i2cmb_environment        env;
   i2cmb_generator          gen;
 
-  bit [7:0] test_one_data [32];
+  bit [WB_DATA_WIDTH-1:0] test_one_data [32];
 
   function new(string name = "", ncsu_component_base parent = null); 
     super.new(name,parent);
