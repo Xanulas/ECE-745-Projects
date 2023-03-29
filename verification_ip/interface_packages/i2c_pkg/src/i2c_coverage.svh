@@ -9,6 +9,16 @@ class i2c_coverage extends ncsu_component#(.T(i2c_transaction));
 //   	option.per_instance = 1;
 //     option.name = get_full_name();
 
+  covergroup coverage_i2c_cg;
+  	// option.per_instance = 1;
+    // option.name = get_full_name();
+    opcodes:        coverpoint opcodes;
+    data_vals:      coverpoint data_vals;
+    addresses:      coverpoint addresses;
+    i2c_cross:      cross opcodes, data_vals, addresses;
+  endgroup
+
+  
 //   	header_type:     coverpoint header_type
 //   	{
 //   	bins ROUTING_TABLE = {ROUTING_TABLE};

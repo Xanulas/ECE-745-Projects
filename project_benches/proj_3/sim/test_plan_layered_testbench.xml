@@ -1,0 +1,705 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Allan Crone</Author>
+  <LastAuthor>Alex Harward</LastAuthor>
+  <Created>2006-10-02T07:59:43Z</Created>
+  <LastSaved>2023-03-29T00:52:05Z</LastSaved>
+  <Company>Mentor Graphics</Company>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>8694</WindowHeight>
+  <WindowWidth>23040</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <TabRatio>416</TabRatio>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Arial"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62">
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s63">
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="16" ss:Bold="1"
+    ss:Italic="1" ss:Underline="Single"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s64">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="14" ss:Bold="1"/>
+   <Interior ss:Color="#99CCFF" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s65">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="14" ss:Bold="1"/>
+   <Interior ss:Color="#99CCFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s69">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s71">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s72">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s73">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s74">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+  </Style>
+  <Style ss:ID="s75">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s76">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s77">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s78">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s80">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s81">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s82">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s94">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#F8CBAD" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s95">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial"/>
+   <Interior ss:Color="#F8CBAD" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s96">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#F8CBAD" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s97">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s98">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s99">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s100">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat/>
+  </Style>
+  <Style ss:ID="s102">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s103">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s104">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss"/>
+   <Interior ss:Color="#CCFFFF" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="AHB to WB Bridge Test Plan">
+  <Table ss:ExpandedColumnCount="10" ss:ExpandedRowCount="37" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="53.1" ss:DefaultRowHeight="12.3">
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="48.900000000000006"/>
+   <Column ss:Width="175.5"/>
+   <Column ss:Width="254.70000000000002"/>
+   <Column ss:Width="163.79999999999998"/>
+   <Column ss:Width="56.1"/>
+   <Column ss:Width="53.7"/>
+   <Column ss:Width="38.699999999999996"/>
+   <Column ss:Width="52.199999999999996"/>
+   <Column ss:Width="67.8"/>
+   <Column ss:Width="57.3"/>
+   <Row ss:Height="19.8">
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Verification Plan for layered testbench</Data></Cell>
+   </Row>
+   <Row ss:Height="12.6"/>
+   <Row ss:Height="18">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">#</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Section</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Description</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Link</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Type</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Weight</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Goal</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Owner</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Manager</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">Priority</Data></Cell>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s94"/>
+    <Cell ss:StyleID="s95"><Data ss:Type="String">Simulation </Data></Cell>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+    <Cell ss:StyleID="s96"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s69"><Data ss:Type="String">1</Data></Cell>
+    <Cell ss:StyleID="s97"><Data ss:Type="String">DUT register tests</Data></Cell>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s71"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+   </Row>
+   <Row ss:Height="37.200000000000003">
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.2</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Test that DUT registers are addressed correctly</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Expected address values are as follows: CSR = 0x00, DPR = 0x01, CMDR = 0x02, FSMR = 0x03. Verify that these addresses actually access the expected registers</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test_i2cmb_reg_addr</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="37.200000000000003">
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.3</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Test ability to R/W to DUT registers</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Verifythe ability to read and write to CSR, DPR, and CMDR. Verify that FSMR can be read and NOT written to (it is supposed to be read-only)</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test_i2cmb_rw_ability</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="37.200000000000003">
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.1</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Test default values of DUT registers</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Each register has an expected value upon reset. Verify that these expected values are actually in the registers after a reset as expected</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test_i2cmb_reg_vals</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="37.200000000000003">
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.4</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Test that DUT register write operations are actually successful</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">After performing a write to the CSR, DPR, and CMDR, perform a read of the register and verify that the value read is the same as the value that was just written</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test_i2cmb_writes</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s78"><Data ss:Type="String">2</Data></Cell>
+    <Cell ss:StyleID="s99"><Data ss:Type="String">DUT code coverage</Data></Cell>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s80"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s80"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s80"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s81"><Data ss:Type="String">2.1</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">code coverage of DUT design files</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">verify all HDL statements and branches are covered by various tests</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">/top/DUT</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">instance</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s82"><Data ss:Type="String">3</Data></Cell>
+    <Cell ss:StyleID="s100"><Data ss:Type="String">DUT FSM tests</Data></Cell>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s81"><Data ss:Type="String">3.1</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">consecutive starts</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">check the case of two consecutive start commands</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test_i2cmb_consecutive_starts</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s81"><Data ss:Type="String">3.2</Data></Cell>
+    <Cell ss:StyleID="s102"><Data ss:Type="String">consecutive stops</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">check the case of two consecutive stop commands</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test_i2cmb_consecutive_stops</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s81"><Data ss:Type="String">3.3</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">FSM covergroup</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">This covergroup stores FSM activity</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_FSM_cg</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">CoverGroup</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">3.4</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">wait signal coverpoint</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">This coverpoint checks if wait signal occurs within specified time</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_FSM_cg::waits</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">3.5</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">bus set coverpoint</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">This coverpoint checks if the full range of bus values can be successfully set</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_FSM_cg::bus_vals</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="37.200000000000003">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">3.6</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Arbitration assertion</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">this assertion maitains that as long as no invalid commands have been sent, arbitration is present. Verifies that if invalid command is sent, arbitration is lost.</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">assertion_i2cmb_arbitration</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Assertion</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s104"><Data ss:Type="String">4</Data></Cell>
+    <Cell ss:StyleID="s100"><Data ss:Type="String">WB functionality</Data></Cell>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">4.1</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">WB opcode coverpoint</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Verify all WB opcodes have been covered</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_wb_cg::opcodes</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">4.2</Data></Cell>
+    <Cell ss:StyleID="s102"><Data ss:Type="String">WB data coverpoint </Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">verify that all data values have been written  (0x00 to 0xFF)</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_wb_cg::data_vals</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">4.3</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">WB address coverpoint</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Verify that all possible addresses have been written to and read from</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_wb_cg::addresses</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">4.4</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">WB transaction covergroup</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Covergroup that stores every WB transaction</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_wb_cg</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">CoverGroup</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">4.5</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Cross of WB opcodes, data values, and addresses</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Tests all possible permutations of opcodes, data, and addresses for WB transactions</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_wb_cg::cross</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Cross</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s104"><Data ss:Type="String">5</Data></Cell>
+    <Cell ss:StyleID="s100"><Data ss:Type="String">I2C functionality</Data></Cell>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s72"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">5.1</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">I2C opcode coverpoint</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Verify all I2C opcodes have been covered</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_i2c_cg::opcodes</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">5.2</Data></Cell>
+    <Cell ss:StyleID="s102"><Data ss:Type="String">I2C data coverpoint </Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">verify that all data values have been written  (0x00 to 0xFF)</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_i2c_cg::data_vals</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">5.3</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">I2C address coverpoint</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Verify that all possible addresses have been written to and read from</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_i2c_cg::addresses</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="12.6">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">5.4</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">I2C transaction covergroup</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Covergroup that stores every I2C transaction</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_i2c_cg</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">CoverGroup</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s103"><Data ss:Type="String">5.5</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Cross of I2C opcodes, data values, and addresses</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Tests all possible permutations of opcodes, data, and addresses for I2C transactions</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">coverage_i2cmb_i2c_cg::cross</Data></Cell>
+    <Cell ss:StyleID="s98"><Data ss:Type="String">Cross</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="Default"/>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Zoom>85</Zoom>
+   <Selected/>
+   <TopRowVisible>10</TopRowVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>8</ActiveRow>
+     <ActiveCol>13</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+   <x:PageLayoutZoom>0</x:PageLayoutZoom>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
