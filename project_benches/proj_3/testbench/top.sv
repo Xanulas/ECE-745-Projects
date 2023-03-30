@@ -132,6 +132,13 @@ test_i2cmb_reg_vals           test_5;
 test_i2cmb_rw_ability         test_6;
 test_i2cmb_writes             test_7;
 
+
+property i2cmb_arbitration;
+  @(posedge clk) 1'b1;
+endproperty
+assert property(i2cmb_arbitration) else $error("i2cmb_arbitration assertion failed!");
+
+
 initial begin : test_flow
   
   ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test.env.wb_agent_env",wb_bus);

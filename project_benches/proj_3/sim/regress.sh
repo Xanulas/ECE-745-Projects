@@ -6,3 +6,4 @@ make run_cli GEN_TRANS_TYPE=test_i2cmb_reg_vals TEST_SEED=random
 make run_cli GEN_TRANS_TYPE=test_i2cmb_rw_ability TEST_SEED=random
 make run_cli GEN_TRANS_TYPE=test_i2cmb_writes TEST_SEED=random
 make merge_coverage
+make view_coverage

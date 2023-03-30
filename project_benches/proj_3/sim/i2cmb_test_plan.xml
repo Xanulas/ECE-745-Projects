@@ -18,7 +18,7 @@
  </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
   <WindowHeight>5196</WindowHeight>
-  <WindowWidth>16980</WindowWidth>
+  <WindowWidth>10776</WindowWidth>
   <WindowTopX>32767</WindowTopX>
   <WindowTopY>32767</WindowTopY>
   <TabRatio>416</TabRatio>
@@ -469,7 +469,7 @@
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.6</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Arbitration assertion</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">this assertion maitains that as long as no invalid commands have been sent, arbitration is present. Verifies that if invalid command is sent, arbitration is lost.</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">assertion_i2cmb_arbitration</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">assert__i2cmb_arbitration</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Assertion</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
@@ -659,12 +659,11 @@
    <Zoom>85</Zoom>
    <Selected/>
    <TopRowVisible>8</TopRowVisible>
-   <LeftColumnVisible>2</LeftColumnVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>21</ActiveRow>
-     <ActiveCol>15</ActiveCol>
+     <ActiveRow>17</ActiveRow>
+     <ActiveCol>3</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
