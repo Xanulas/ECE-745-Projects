@@ -25,10 +25,10 @@ class wb_agent extends ncsu_component#(.T(wb_transaction));
     driver.build();
     driver.bus = this.bus;
     // if ( configuration.collect_coverage) begin
-    //   coverage = new("coverage",this);
-    //   coverage.set_configuration(configuration);
-    //   coverage.build();
-    //   connect_subscriber(coverage);
+      coverage = new("coverage",this);
+      coverage.set_configuration(configuration);
+      coverage.build();
+      // connect_subscriber(coverage);
     // end
     monitor = new("monitor",this);
     monitor.set_configuration(configuration);

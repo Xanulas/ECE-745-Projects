@@ -124,7 +124,13 @@ i2c_bus (
   .sda_o(sda)
 );
 
-i2cmb_test test;
+i2cmb_test                      test;
+test_i2cmb_consecutive_starts test_2;
+test_i2cmb_consecutive_stops  test_3;
+test_i2cmb_reg_addr           test_4;
+test_i2cmb_reg_vals           test_5;
+test_i2cmb_rw_ability         test_6;
+test_i2cmb_writes             test_7;
 
 initial begin : test_flow
   

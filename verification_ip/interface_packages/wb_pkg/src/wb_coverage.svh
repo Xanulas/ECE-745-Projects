@@ -1,6 +1,6 @@
 class wb_coverage extends ncsu_component#(.T(wb_transaction));
 
-//     wb_configuration configuration;
+    wb_configuration configuration;
 //   	header_type_t     header_type;
 //   	header_sub_type_t header_sub_type;
 //   	trailer_type_t    trailer_type;
@@ -8,6 +8,19 @@ class wb_coverage extends ncsu_component#(.T(wb_transaction));
 //   covergroup wb_transaction_cg;
 //   	option.per_instance = 1;
 //     option.name = get_full_name();
+
+  bit opcodes;
+  bit [WB_DATA_WIDTH-1:0] data_vals;
+  bit [WB_ADDR_WIDTH-1:0] addresses;
+
+  covergroup coverage_wb_cg;
+  	// option.per_instance = 1;
+    // option.name = get_full_name();
+    opcodes:                               coverpoint opcodes;
+    data_vals:                             coverpoint data_vals;
+    addresses:                             coverpoint addresses;
+    opcodes_x_data_vals_x_addresses:       cross opcodes, data_vals, addresses;
+  endgroup
 
 //   	header_type:     coverpoint header_type
 //   	{
@@ -51,21 +64,23 @@ class wb_coverage extends ncsu_component#(.T(wb_transaction));
 //   	  header_x_trailer: cross header_type, trailer_type;
 //   endgroup
 
-//   function new(string name = "", ncsu_component_base  parent = null); 
-//     super.new(name,parent);
-//     wb_transaction_cg = new;
-//   endfunction
+  function new(string name = "", ncsu_component_base  parent = null); 
+    super.new(name,parent);
+    coverage_wb_cg = new;
+  endfunction
 
-//   function void set_configuration(wb_configuration cfg);
-//     configuration = cfg;
-//   endfunction
+  function void set_configuration(wb_configuration cfg);
+    configuration = cfg;
+  endfunction
 
-//   virtual function void nb_put(T trans);
-//     $display("wb_coverage::nb_put() %s called",get_full_name());
-//     header_type     = header_type_t'(trans.header[63:60]);
-//   	header_sub_type = header_sub_type_t'(trans.header[59:56]);
-//   	trailer_type    = trailer_type_t'(trans.header[7:0]); 
-//     wb_transaction_cg.sample();
-//   endfunction
+  virtual function void nb_put(T trans);
+    // $display("wb_coverage::nb_put() %s called",get_full_name());
+
+    opcodes = trans.op;
+    data_vals = trans.data;
+    addresses = trans.addr;
+
+    coverage_wb_cg.sample();
+  endfunction
 
 endclass

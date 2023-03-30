@@ -1,10 +1,14 @@
-class i2cmb_coverage extends ncsu_component#(.T(i2c_transaction));
+class i2cmb_coverage extends ncsu_component#(.T(wb_transaction));
 
-  // env_configuration     configuration;
-  // i2c_transaction  covergae_transaction;
+  i2cmb_env_configuration     configuration;
+  wb_transaction  coverage_transaction;
   // header_type_t         header_type;
   // bit                   loopback;
   // bit                   invert;
+
+  bit [7:0] bus_vals;
+  bit [WB_DATA_WIDTH-1:0] waits;
+
 
   covergroup coverage_i2cmb_cg;
   	// option.per_instance = 1;
@@ -13,9 +17,9 @@ class i2cmb_coverage extends ncsu_component#(.T(i2c_transaction));
     bus_vals:      coverpoint bus_vals;
   endgroup  
 
-  // function void set_configuration(env_configuration cfg);
-  // 	configuration = cfg;
-  // endfunction
+  function void set_configuration(i2cmb_env_configuration cfg);
+  	configuration = cfg;
+  endfunction
 
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
@@ -23,11 +27,11 @@ class i2cmb_coverage extends ncsu_component#(.T(i2c_transaction));
   endfunction
 
   virtual function void nb_put(T trans);
-    $display({get_full_name()," ",trans.convert2string()});
-    header_type = header_type_t'(trans.header[63:60]);
-    loopback    = configuration.loopback;
-    invert      = configuration.invert;
-    coverage_cg.sample();
+    // $display({get_full_name()," ",trans.convert2string()});
+    waits = coverage_transaction.data;
+    bus_vals = 8'h05;
+
+    coverage_i2cmb_cg.sample();
   endfunction
 
 endclass

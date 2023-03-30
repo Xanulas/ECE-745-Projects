@@ -14,5 +14,12 @@ import data_pkg::*;
 `include "src/i2cmb_environment.svh"
 `include "src/i2cmb_test.svh"
 
+`include "src/test_i2cmb_consecutive_starts.svh"
+`include "src/test_i2cmb_consecutive_stops.svh"
+`include "src/test_i2cmb_reg_addr.svh"
+`include "src/test_i2cmb_reg_vals.svh"   
+`include "src/test_i2cmb_rw_ability.svh"        
+`include "src/test_i2cmb_writes.svh"
+
 
 endpackage
