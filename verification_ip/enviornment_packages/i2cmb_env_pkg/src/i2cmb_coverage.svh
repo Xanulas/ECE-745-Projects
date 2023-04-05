@@ -10,7 +10,7 @@ class i2cmb_coverage extends ncsu_component#(.T(wb_transaction));
   bit [WB_DATA_WIDTH-1:0] waits;
 
 
-  covergroup coverage_i2cmb_cg;
+  covergroup coverage_i2cmb_FSM_cg;
   	// option.per_instance = 1;
     // option.name = get_full_name();
     waits:         coverpoint waits;
@@ -23,7 +23,7 @@ class i2cmb_coverage extends ncsu_component#(.T(wb_transaction));
 
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
-    coverage_i2cmb_cg = new;
+    coverage_i2cmb_FSM_cg = new;
   endfunction
 
   virtual function void nb_put(T trans);
@@ -31,7 +31,7 @@ class i2cmb_coverage extends ncsu_component#(.T(wb_transaction));
     waits = coverage_transaction.data;
     bus_vals = 8'h05;
 
-    coverage_i2cmb_cg.sample();
+    coverage_i2cmb_FSM_cg.sample();
   endfunction
 
 endclass
