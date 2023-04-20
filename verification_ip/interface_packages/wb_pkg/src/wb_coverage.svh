@@ -74,7 +74,7 @@ class wb_coverage extends ncsu_component#(.T(wb_transaction));
   endfunction
 
   virtual function void nb_put(T trans);
-    // $display("wb_coverage::nb_put() %s called",get_full_name());
+    // $display("===== WB COVERAGE ====");
 
     opcodes = trans.op;
     data_vals = trans.data;

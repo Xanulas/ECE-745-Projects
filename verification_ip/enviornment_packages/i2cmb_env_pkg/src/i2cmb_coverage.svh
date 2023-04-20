@@ -9,13 +9,22 @@ class i2cmb_coverage extends ncsu_component#(.T(wb_transaction));
 
 
   bit [7:0] bus_vals;
-  logic [4:0] FSM_state;
+  logic [3:0] FSM_state;
 
-
-  covergroup coverage_i2cmb_FSM_cg;
-  	// option.per_instance = 1;
-    // option.name = get_full_name();
-    FSM_state:         coverpoint FSM_state;
+covergroup coverage_i2cmb_FSM_cg;
+    FSM_state: coverpoint FSM_state
+    {
+        illegal_bins invalid_states = { 
+            4'b1000,
+            4'b1001,
+            4'b1010,
+            4'b1011,
+            4'b1100,
+            4'b1101,
+            4'b1110,
+            4'b1111 
+        };
+    }
     bus_vals:      coverpoint bus_vals;
   endgroup  
 

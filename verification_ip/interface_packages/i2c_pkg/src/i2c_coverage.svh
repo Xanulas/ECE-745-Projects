@@ -75,13 +75,16 @@ class i2c_coverage extends ncsu_component#(.T(i2c_transaction));
   endfunction
 
   virtual function void nb_put(T trans);
-    // $display("i2c_coverage::nb_put() %s called",get_full_name());
+    // $display("===== I2C COVERAGE ====");
 
     opcodes = trans.op;
-    data_vals = 8'h33;
-    addresses = trans.addr;
+    addresses = trans.addr;    
 
-    coverage_i2c_cg.sample();
+    for(int i = 0; i < trans.data.size(); i++) begin
+      data_vals = trans.data[i];
+      coverage_i2c_cg.sample();  
+    end
+
   endfunction
 
 endclass
