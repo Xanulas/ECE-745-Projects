@@ -7,7 +7,7 @@ package data_pkg;
     typedef enum bit{
         WB_WRITE=1'b0,
         WB_READ=1'b1
-    } wb_op_t;    
+    } wb_op_t;
 
     typedef enum bit [1:0] {
         IDLE=2'b00,
@@ -15,6 +15,13 @@ package data_pkg;
         WRITE=2'b10,
         READ=2'b11
     } listen_states_t;
+
+    typedef enum bit [1:0] {
+        WAIT_FOR_START=2'b00,
+        PREDICT_ADDR_AND_OP=2'b01,
+        WAIT_FOR_CMDR =2'b10,
+        PREDICT_DATA=2'b11
+    } predictor_state_t;
 
 parameter int WB_ADDR_WIDTH = 2;
 parameter int WB_DATA_WIDTH = 8;

@@ -6,6 +6,7 @@ class i2cmb_generator extends ncsu_component;
 
   i2c_transaction i2c_trans;
   wb_transaction wb_trans;  
+  i2cmb_predictor pred;
 
   i2c_agent i2c_agent_gen;
   wb_agent wb_agent_gen;
@@ -30,6 +31,10 @@ class i2cmb_generator extends ncsu_component;
   function void set_agent_wb(wb_agent agent);
     this.wb_agent_gen = agent;
   endfunction  
+
+  function void set_predictor(i2cmb_predictor pred);
+    this.pred = pred;
+  endfunction
 
   virtual task run();
 
@@ -76,6 +81,7 @@ class i2cmb_generator extends ncsu_component;
     i2c_trans.addr = 8'h22;
     i2c_trans.data = i2c_data;
     i2c_trans.op = I2C_READ;
+    pred.populate_pred_rd_queue(i2c_data);
 
     fork
       begin
@@ -105,6 +111,7 @@ class i2cmb_generator extends ncsu_component;
     i2c_trans.addr = 8'h22;
     i2c_trans.data = i2c_data;
     i2c_trans.op = I2C_READ;
+    pred.populate_pred_rd_queue(i2c_data);    
 
     fork
       begin

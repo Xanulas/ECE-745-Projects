@@ -44,6 +44,10 @@ class i2cmb_environment extends ncsu_component#(.T(i2c_transaction));
     return wb_agent_env;
   endfunction
 
+  function i2cmb_predictor get_predictor();
+    return pred;
+  endfunction  
+
   virtual task run();
      i2c_agent_env.run();
      wb_agent_env.run();

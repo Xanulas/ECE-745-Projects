@@ -16,7 +16,7 @@ class wb_transaction extends ncsu_transaction;
   endfunction
 
   // function bit compare(wb_transaction rhs);
-  //   return ((this.header  == rhs.header ) && 
+  //   return ((this.header  == rhs.header ) &&
   //           (this.payload == rhs.payload) &&
   //           (this.trailer == rhs.trailer) );
   // endfunction
