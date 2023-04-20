@@ -4,6 +4,8 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
     super.new(name,parent);
   endfunction
 
+  logic [WB_DATA_WIDTH-1:0] FSMR_val;
+
   virtual wb_if bus;
   wb_configuration configuration;
   wb_transaction trans;
@@ -23,6 +25,8 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
         bus.master_read(DPR, temp_store);
       bus.master_read(CMDR, temp_store);
     end
+
+    bus.master_read(FSMR, FSMR_val);
 
     // $display({get_full_name()," ",trans.convert2string()});
 
