@@ -124,7 +124,9 @@ i2c_bus (
   .sda_o(sda)
 );
 
-i2cmb_test                      test;
+
+
+i2cmb_test                    test_1;
 test_i2cmb_consecutive_starts test_2;
 test_i2cmb_consecutive_stops  test_3;
 test_i2cmb_reg_addr           test_4;
@@ -132,24 +134,133 @@ test_i2cmb_reg_vals           test_5;
 test_i2cmb_rw_ability         test_6;
 test_i2cmb_writes             test_7;
 
-
 property i2cmb_arbitration;
   @(posedge clk) 1'b1;
 endproperty
 assert property(i2cmb_arbitration) else $error("i2cmb_arbitration assertion failed!");
 
-
 initial begin : test_flow
-  
-  ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test.env.wb_agent_env",wb_bus);
-  ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test.env.i2c_agent_env",i2c_bus);
-  test = new("test", null);
 
-  test.run();
+  string test_name;
 
-  #2000
+  $value$plusargs("GEN_TRANS_TYPE=%s", test_name);
 
-  $finish;
+
+  case(test_name)
+    "i2cmb_test" : begin
+      $display("====================================================");
+      $display("               BEGIN TEST 1: i2cmb_test             ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_1.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_1.env.i2c_agent_env",i2c_bus);       
+      test_1 = new("test_1", null);
+      test_1.run();
+
+      $display("====================================================");
+      $display("               END TEST 1: i2cmb_test               ");
+      $display("====================================================");
+
+      $finish;
+    end
+    "test_i2cmb_consecutive_starts" : begin
+      $display("====================================================");
+      $display("    BEGIN TEST 2: test_i2cmb_consecutive_starts     ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_2.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_2.env.i2c_agent_env",i2c_bus);       
+      test_2 = new("test_2", null);
+      test_2.run();
+
+      $display("====================================================");
+      $display("    END TEST 2: test_i2cmb_consecutive_starts       ");
+      $display("====================================================");
+
+      $finish;        
+    end    
+    "test_i2cmb_consecutive_stops" : begin
+      $display("====================================================");
+      $display("    BEGIN TEST 3: test_i2cmb_consecutive_stops      ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_2.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_2.env.i2c_agent_env",i2c_bus);       
+      test_3 = new("test_3", null);
+      test_3.run(); 
+
+      $display("====================================================");
+      $display("    END TEST 3: test_i2cmb_consecutive_stops        ");
+      $display("====================================================");
+
+      $finish;          
+    end
+    "test_i2cmb_reg_addr" : begin
+      $display("====================================================");
+      $display("         BEGIN TEST 4: test_i2cmb_reg_addr          ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_2.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_2.env.i2c_agent_env",i2c_bus);       
+      test_4 = new("test_4", null);
+      test_4.run(); 
+
+      $display("====================================================");
+      $display("         END TEST 4: test_i2cmb_reg_addr            ");
+      $display("====================================================");
+
+      $finish;           
+    end
+    "test_i2cmb_reg_vals" : begin
+      $display("====================================================");
+      $display("         BEGIN TEST 5: test_i2cmb_reg_vals          ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_2.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_2.env.i2c_agent_env",i2c_bus);       
+      test_5 = new("test_5", null);
+      test_5.run(); 
+
+      $display("====================================================");
+      $display("         END TEST 5: test_i2cmb_reg_vals            ");
+      $display("====================================================");
+
+      $finish;           
+    end
+    "test_i2cmb_rw_ability" : begin
+      $display("====================================================");
+      $display("       BEGIN TEST 6: test_i2cmb_rw_ability          ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_2.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_2.env.i2c_agent_env",i2c_bus);       
+      test_6 = new("test_6", null);
+      test_6.run(); 
+
+      $display("====================================================");
+      $display("       END TEST 6: test_i2cmb_rw_ability            ");
+      $display("====================================================");
+
+      $finish;         
+    end
+    "test_i2cmb_writes" : begin
+      $display("====================================================");
+      $display("          BEGIN TEST 7: test_i2cmb_writes           ");
+      $display("====================================================");      
+
+      ncsu_config_db#(virtual wb_if#(WB_ADDR_WIDTH,WB_DATA_WIDTH))::set("test_2.env.wb_agent_env",wb_bus);
+      ncsu_config_db#(virtual i2c_if#(I2C_ADDR_WIDTH,I2C_DATA_WIDTH))::set("test_2.env.i2c_agent_env",i2c_bus);       
+      test_7 = new("test_7", null);
+      test_7.run();
+
+      $display("====================================================");
+      $display("          END TEST 7: test_i2cmb_writes             ");
+      $display("====================================================");
+
+      $finish;         
+    end      
+  default: $display("specified test not found!");                  
+  endcase
 
 end
 endmodule

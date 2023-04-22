@@ -17,8 +17,8 @@
   <AllowPNG/>
  </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>5196</WindowHeight>
-  <WindowWidth>10776</WindowWidth>
+  <WindowHeight>8694</WindowHeight>
+  <WindowWidth>23040</WindowWidth>
   <WindowTopX>32767</WindowTopX>
   <WindowTopY>32767</WindowTopY>
   <TabRatio>416</TabRatio>
@@ -443,9 +443,9 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.4</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">wait signal coverpoint</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">This coverpoint checks if wait signal occurs within specified time</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2cmb_FSM_cg::waits</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">FSM states</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">This coverpoint samples which FSM states are being exercised</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2cmb_FSM_cg::FSM_state</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
@@ -455,9 +455,9 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.5</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">bus set coverpoint</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">This coverpoint checks if the full range of bus values can be successfully set</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2cmb_FSM_cg::bus_vals</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">FSM state transitions</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">This coverpoint samples which FSM state transitions are being exercised</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2cmb_FSM_cg::FSM_state_transitions</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
@@ -658,11 +658,11 @@
    </Print>
    <Zoom>85</Zoom>
    <Selected/>
-   <TopRowVisible>8</TopRowVisible>
+   <TopRowVisible>5</TopRowVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>17</ActiveRow>
+     <ActiveRow>16</ActiveRow>
      <ActiveCol>3</ActiveCol>
     </Pane>
    </Panes>

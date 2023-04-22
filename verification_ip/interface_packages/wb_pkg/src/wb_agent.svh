@@ -6,7 +6,10 @@ class wb_agent extends ncsu_component#(.T(wb_transaction));
   wb_coverage      coverage;
   ncsu_component #(T) subscribers[$];
   virtual wb_if    bus;
-//
+
+  // typedef logic [WB_DATA_WIDTH-1:0] queue_of_logic[$];
+  integer num_vals;
+
   function new(string name = "", ncsu_component_base  parent = null); 
     super.new(name,parent);
     if ( !(ncsu_config_db#(virtual wb_if)::get(get_full_name(), this.bus))) begin;
@@ -36,9 +39,13 @@ class wb_agent extends ncsu_component#(.T(wb_transaction));
     monitor.bus = this.bus;
   endfunction
 
-  function get_FSMR_val();
-    return driver.FSMR_val[7:4];
-  endfunction
+
+
+function void get_FSMR_vals(output logic [WB_DATA_WIDTH-1:0] FSMR_vals []);
+  num_vals = driver.FSMR_val_q.size();
+  FSMR_vals = new[num_vals];
+  for(int i; i < num_vals; i++) FSMR_vals[i] = driver.FSMR_val_q.pop_back();
+endfunction
 
   virtual function void nb_put(T trans);
     foreach (subscribers[i]) subscribers[i].nb_put(trans);

@@ -6,7 +6,7 @@ class i2cmb_test extends ncsu_component#(.T(i2c_transaction));
 
   bit [WB_DATA_WIDTH-1:0] test_one_data [32];
 
-  function new(string name = "", ncsu_component_base parent = null); 
+  function new(string name = "", ncsu_component_base parent = null);
     super.new(name,parent);
     cfg = new("cfg");
     // cfg.sample_coverage();

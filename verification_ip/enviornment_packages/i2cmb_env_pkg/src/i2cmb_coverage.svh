@@ -7,9 +7,10 @@ class i2cmb_coverage extends ncsu_component#(.T(wb_transaction));
   // bit                   invert;
   wb_agent wb_agent_cov;
 
-
-  bit [7:0] bus_vals;
+  logic [WB_DATA_WIDTH-1:0] FSMR_vals [];
   logic [3:0] FSM_state;
+  logic [3:0] FSM_state_transitions;  
+  // int queue_size;
 
 covergroup coverage_i2cmb_FSM_cg;
     FSM_state: coverpoint FSM_state
@@ -25,7 +26,7 @@ covergroup coverage_i2cmb_FSM_cg;
             4'b1111 
         };
     }
-    bus_vals:      coverpoint bus_vals;
+    FSM_state_transitions: coverpoint FSM_state_transitions;
   endgroup  
 
   function void set_wb_agent(wb_agent agent);
@@ -46,9 +47,14 @@ covergroup coverage_i2cmb_FSM_cg;
 
     // TODO: turn FSM_state into a queue that populates multiples times in driver::nb_put and for loop here
 
-    FSM_state = wb_agent_cov.get_FSMR_val();
-    bus_vals = 8'h05;
-    coverage_i2cmb_FSM_cg.sample();
+    wb_agent_cov.get_FSMR_vals(FSMR_vals);
+    FSM_state_transitions = 4'b0;
+
+    for(int i = 0; i < FSMR_vals.size(); i++) begin
+      FSM_state = FSMR_vals[i][7:4];
+      coverage_i2cmb_FSM_cg.sample();
+    end
+
   endfunction
 
 endclass

@@ -31,7 +31,7 @@ class i2cmb_environment extends ncsu_component#(.T(i2c_transaction));
     coverage.set_configuration(configuration);
     coverage.build();
     coverage.set_wb_agent(wb_agent_env);
-    // i2c_agent_env.connect_subscriber(coverage);
+    // i2c_agent_env.connect_subscriber(coverage); 
     wb_agent_env.connect_subscriber(coverage);
     wb_agent_env.connect_subscriber(pred);
     pred.set_scoreboard(scbd);

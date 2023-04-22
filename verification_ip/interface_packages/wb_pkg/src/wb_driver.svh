@@ -5,6 +5,8 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
   endfunction
 
   logic [WB_DATA_WIDTH-1:0] FSMR_val;
+  logic [WB_DATA_WIDTH-1:0] FSMR_val_q [$];
+  
 
   virtual wb_if bus;
   wb_configuration configuration;
@@ -21,12 +23,16 @@ class wb_driver extends ncsu_component#(.T(wb_transaction));
 
     if(trans.addr == CMDR) begin
       bus.wait_for_interrupt();
-      if((trans.data == CMDR_READ_ACK) || (trans.data == CMDR_READ_NACK))
+      if((trans.data == CMDR_READ_ACK) || (trans.data == CMDR_READ_NACK)) begin
+        bus.master_read(FSMR, FSMR_val);
+        FSMR_val_q.push_front(FSMR_val);        
         bus.master_read(DPR, temp_store);
+      end
       bus.master_read(CMDR, temp_store);
     end
 
     bus.master_read(FSMR, FSMR_val);
+    FSMR_val_q.push_front(FSMR_val);    
 
     // $display({get_full_name()," ",trans.convert2string()});
 
