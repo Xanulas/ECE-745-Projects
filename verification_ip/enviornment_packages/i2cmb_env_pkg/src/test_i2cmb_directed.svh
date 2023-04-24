@@ -1,4 +1,4 @@
-class test_i2cmb_rw_ability extends ncsu_component#(.T(i2c_transaction));
+class test_i2cmb_directed extends ncsu_component#(.T(i2c_transaction));
 
   i2cmb_env_configuration  cfg;
   i2cmb_environment        env;
@@ -22,7 +22,7 @@ class test_i2cmb_rw_ability extends ncsu_component#(.T(i2c_transaction));
   virtual task run();
 
      env.run();
-     gen.run_test_i2cmb_rw_ability();
+     gen.run_test_i2cmb_directed();
   endtask
 
 endclass

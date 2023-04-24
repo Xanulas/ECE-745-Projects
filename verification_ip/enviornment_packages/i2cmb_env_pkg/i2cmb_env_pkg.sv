@@ -19,7 +19,10 @@ import data_pkg::*;
 `include "src/test_i2cmb_reg_addr.svh"
 `include "src/test_i2cmb_reg_vals.svh"   
 `include "src/test_i2cmb_rw_ability.svh"        
-`include "src/test_i2cmb_writes.svh"
+`include "src/test_i2cmb_busses.svh"
+`include "src/test_i2cmb_directed.svh"
+`include "src/test_i2cmb_randomized.svh"
+
 
 
 endpackage

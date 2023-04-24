@@ -9,7 +9,7 @@
   <Author>Allan Crone</Author>
   <LastAuthor>Alex Harward</LastAuthor>
   <Created>2006-10-02T07:59:43Z</Created>
-  <LastSaved>2023-03-29T01:18:22Z</LastSaved>
+  <LastSaved>2023-04-24T01:02:04Z</LastSaved>
   <Company>Mentor Graphics</Company>
   <Version>16.00</Version>
  </DocumentProperties>
@@ -322,7 +322,7 @@
     <Cell ss:StyleID="s72"/>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="37.274999999999999">
-    <Cell ss:StyleID="s73"><Data ss:Type="String">1.2</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.1</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Test that DUT registers are addressed correctly</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Expected address values are as follows: CSR = 0x00, DPR = 0x01, CMDR = 0x02, FSMR = 0x03. Verify that these addresses actually access the expected registers</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_reg_addr</Data></Cell>
@@ -334,7 +334,7 @@
     <Cell ss:StyleID="s77"/>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="37.274999999999999">
-    <Cell ss:StyleID="s73"><Data ss:Type="String">1.3</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.2</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Test ability to R/W to DUT registers</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Verifythe ability to read and write to CSR, DPR, and CMDR. Verify that FSMR can be read and NOT written to (it is supposed to be read-only)</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_rw_ability</Data></Cell>
@@ -346,7 +346,7 @@
     <Cell ss:StyleID="s77"/>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="37.274999999999999">
-    <Cell ss:StyleID="s73"><Data ss:Type="String">1.1</Data></Cell>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.3</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Test default values of DUT registers</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Each register has an expected value upon reset. Verify that these expected values are actually in the registers after a reset as expected</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_reg_vals</Data></Cell>
@@ -359,9 +359,33 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="37.274999999999999">
     <Cell ss:StyleID="s73"><Data ss:Type="String">1.4</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">Test that DUT register write operations are actually successful</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">After performing a write to the CSR, DPR, and CMDR, perform a read of the register and verify that the value read is the same as the value that was just written</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_writes</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Test transactions directed</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Exercise all possible addresses for reads and writes</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_directed</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="37.274999999999999">
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.5</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Test transactions randomized</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Exercise random transactions with random data</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_randomized</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">test</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="37.274999999999999">
+    <Cell ss:StyleID="s73"><Data ss:Type="String">1.6</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Test bus numbers</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Test that all specified bus values are accepted by DUT and work correctly</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_busses</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
@@ -405,22 +429,22 @@
     <Cell ss:StyleID="s72"/>
     <Cell ss:StyleID="s72"/>
    </Row>
-   <Row ss:AutoFitHeight="0" ss:Height="12.524999999999999">
+   <Row ss:Height="24.9">
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.1</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">consecutive starts</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive start commands</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive start commands (intended to cause error)</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_consecutive_starts</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">0</Data></Cell>
     <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
     <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
     <Cell ss:StyleID="s77"/>
    </Row>
-   <Row ss:AutoFitHeight="0" ss:Height="12.524999999999999">
+   <Row ss:Height="24.9">
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.2</Data></Cell>
     <Cell ss:StyleID="s84"><Data ss:Type="String">consecutive stops</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive stop commands</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive stop commands (not intended to cause error)</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_consecutive_stops</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
@@ -446,18 +470,6 @@
     <Cell ss:StyleID="s74"><Data ss:Type="String">FSM states</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">This coverpoint samples which FSM states are being exercised</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2cmb_FSM_cg::FSM_state</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
-    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
-    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
-    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
-    <Cell ss:StyleID="s77"/>
-   </Row>
-   <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
-    <Cell ss:StyleID="s81"><Data ss:Type="String">3.5</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">FSM state transitions</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">This coverpoint samples which FSM state transitions are being exercised</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2cmb_FSM_cg::FSM_state_transitions</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">CoverPoint</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
@@ -537,18 +549,6 @@
     <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
     <Cell ss:StyleID="s77"/>
    </Row>
-   <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
-    <Cell ss:StyleID="s81"><Data ss:Type="String">4.5</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">Cross of WB opcodes, data values, and addresses</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">Tests all possible permutations of opcodes, data, and addresses for WB transactions</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_wb_cg::opcodes_x_data_vals_x_addresses</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">Cross</Data></Cell>
-    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
-    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
-    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
-    <Cell ss:StyleID="s77"/>
-   </Row>
    <Row ss:AutoFitHeight="0" ss:Height="12.524999999999999">
     <Cell ss:StyleID="s82"><Data ss:Type="String">5</Data></Cell>
     <Cell ss:StyleID="s83"><Data ss:Type="String">I2C functionality</Data></Cell>
@@ -611,9 +611,9 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
     <Cell ss:StyleID="s81"><Data ss:Type="String">5.5</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">Cross of I2C opcodes, data values, and addresses</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">Tests all possible permutations of opcodes, data, and addresses for I2C transactions</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2c_cg::opcodes_x_data_vals_x_addresses</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Cross of I2C opcodes and addresses</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Tests all possible permutations of opcodes and addresses for I2C transactions</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2c_cg::opcodes_x_addresses</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Cross</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
@@ -621,8 +621,17 @@
     <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
     <Cell ss:StyleID="s77"/>
    </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="Default"/>
+   <Row ss:Height="24.9">
+    <Cell ss:StyleID="s81"><Data ss:Type="String">5.6</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Cross of I2C opcodes, data values</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Tests all possible permutations of opcodes and data for I2C transactions</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">coverage_i2c_cg::opcodes_x_data_vals</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">Cross</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
+    <Cell ss:StyleID="s77"/>
    </Row>
    <Row ss:AutoFitHeight="0">
     <Cell ss:StyleID="Default"/>
@@ -658,11 +667,10 @@
    </Print>
    <Zoom>85</Zoom>
    <Selected/>
-   <TopRowVisible>5</TopRowVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>16</ActiveRow>
+     <ActiveRow>10</ActiveRow>
      <ActiveCol>3</ActiveCol>
     </Pane>
    </Panes>

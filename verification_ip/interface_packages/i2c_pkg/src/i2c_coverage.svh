@@ -19,7 +19,8 @@ class i2c_coverage extends ncsu_component#(.T(i2c_transaction));
     opcodes:                              coverpoint opcodes;
     data_vals:                            coverpoint data_vals;
     addresses:                            coverpoint addresses;
-    opcodes_x_data_vals_x_addresses:      cross opcodes, data_vals, addresses;
+    opcodes_x_data_vals:      cross opcodes, data_vals;
+    opcodes_x_addresses:      cross opcodes, addresses;    
   endgroup
 
   

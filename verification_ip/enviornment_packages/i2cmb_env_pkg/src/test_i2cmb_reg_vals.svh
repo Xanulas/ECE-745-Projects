@@ -16,13 +16,13 @@ class test_i2cmb_reg_vals extends ncsu_component#(.T(i2c_transaction));
     gen = new("gen",this);
     gen.set_agent_i2c(env.get_i2c_agent());
     gen.set_agent_wb(env.get_wb_agent());
+    gen.set_predictor(env.get_predictor());    
   endfunction
 
   virtual task run();
-     gen.write_wb(test_one_data, 8'h22);
 
      env.run();
-     gen.run();
+     gen.run_test_i2cmb_reg_vals();
   endtask
 
 endclass

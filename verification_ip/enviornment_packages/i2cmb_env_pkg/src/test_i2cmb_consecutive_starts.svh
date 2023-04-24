@@ -20,9 +20,9 @@ class test_i2cmb_consecutive_starts extends ncsu_component#(.T(i2c_transaction))
   endfunction
 
   virtual task run();
-    // $display
+
      env.run();
-    //  gen.run();
+     gen.run_test_i2cmb_consecutive_starts();
   endtask
 
 endclass

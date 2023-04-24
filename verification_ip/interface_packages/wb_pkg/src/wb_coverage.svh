@@ -19,7 +19,6 @@ class wb_coverage extends ncsu_component#(.T(wb_transaction));
     opcodes:                               coverpoint opcodes;
     data_vals:                             coverpoint data_vals;
     addresses:                             coverpoint addresses;
-    opcodes_x_data_vals_x_addresses:       cross opcodes, data_vals, addresses;
   endgroup
 
 //   	header_type:     coverpoint header_type
