@@ -13,7 +13,7 @@ class i2cmb_scoreboard extends ncsu_component#(.T(i2c_transaction));
   endfunction
 
   virtual function void nb_put(T trans);
-    $display({get_full_name()," nb_put: actual transaction ",trans.convert2string()});
+    // $display({get_full_name()," nb_put: actual transaction ",trans.convert2string()});
     if ( this.trans_in.compare(trans) ) $display({get_full_name()," i2c_transaction MATCH!"});
     else                                $display({get_full_name()," i2c_transaction MISMATCH!"});
   endfunction

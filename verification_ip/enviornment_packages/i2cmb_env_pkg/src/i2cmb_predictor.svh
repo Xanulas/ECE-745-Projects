@@ -72,7 +72,7 @@ class i2cmb_predictor extends ncsu_component#(.T(wb_transaction));
               i2c_predicted_trans.data = new[num_i2c_data_bytes];
               for(int i = 0; i < num_i2c_data_bytes; i++) i2c_predicted_trans.data[i] = i2c_data_queue.pop_back();
 
-              $display({get_full_name()," ",i2c_predicted_trans.convert2string()});
+              // $display({get_full_name()," ",i2c_predicted_trans.convert2string()});
               scoreboard.nb_transport(i2c_predicted_trans, i2c_trans);
               if(is_start_bit(trans)) predictor_state = PREDICT_ADDR_AND_OP;
               else if(is_stop_bit(trans)) predictor_state = WAIT_FOR_START;

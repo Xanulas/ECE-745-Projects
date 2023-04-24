@@ -1,0 +1,26 @@
+1. i2cmb_test
+TEST_SEED = NOT APPLICABLE
+
+2. test_i2cmb_consecutive_starts
+TEST_SEED = NOT APPLICABLE
+
+3. test_i2cmb_consecutive_stops
+TEST_SEED = NOT APPLICABLE
+
+4. test_i2cmb_reg_addr
+TEST_SEED = NOT APPLICABLE
+
+5. test_i2cmb_reg_vals
+TEST_SEED = NOT APPLICABLE
+
+6. test_i2cmb_rw_ability
+TEST_SEED = NOT APPLICABLE
+
+7. test_i2cmb_busses
+TEST_SEED = NOT APPLICABLE
+
+8. test_i2cmb_directed
+TEST_SEED = NOT APPLICABLE
+
+9. test_i2cmb_randomized
+TEST_SEED = 726498

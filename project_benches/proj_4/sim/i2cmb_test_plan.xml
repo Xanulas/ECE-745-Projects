@@ -429,19 +429,19 @@
     <Cell ss:StyleID="s72"/>
     <Cell ss:StyleID="s72"/>
    </Row>
-   <Row ss:Height="24.9">
+   <Row ss:Height="37.200000000000003">
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.1</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">consecutive starts</Data></Cell>
-    <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive start commands (intended to cause error)</Data></Cell>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive start commands (intended to cause error) - weight is 0 because this is a negative test</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test_i2cmb_consecutive_starts</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">test</Data></Cell>
-    <Cell ss:StyleID="s75"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s75"><Data ss:Type="Number">0</Data></Cell>
     <Cell ss:StyleID="s75"><Data ss:Type="Number">0</Data></Cell>
     <Cell ss:StyleID="s76"><Data ss:Type="String">abharwar</Data></Cell>
     <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
     <Cell ss:StyleID="s77"/>
    </Row>
-   <Row ss:Height="24.9">
+   <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
     <Cell ss:StyleID="s81"><Data ss:Type="String">3.2</Data></Cell>
     <Cell ss:StyleID="s84"><Data ss:Type="String">consecutive stops</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">check the case of two consecutive stop commands (not intended to cause error)</Data></Cell>
@@ -621,7 +621,7 @@
     <Cell ss:StyleID="s77"><Data ss:Type="String">roden</Data></Cell>
     <Cell ss:StyleID="s77"/>
    </Row>
-   <Row ss:Height="24.9">
+   <Row ss:AutoFitHeight="0" ss:Height="24.974999999999998">
     <Cell ss:StyleID="s81"><Data ss:Type="String">5.6</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Cross of I2C opcodes, data values</Data></Cell>
     <Cell ss:StyleID="s74"><Data ss:Type="String">Tests all possible permutations of opcodes and data for I2C transactions</Data></Cell>
@@ -670,8 +670,8 @@
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>10</ActiveRow>
-     <ActiveCol>3</ActiveCol>
+     <ActiveRow>15</ActiveRow>
+     <ActiveCol>2</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
